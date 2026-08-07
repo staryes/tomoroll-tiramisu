@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { services } from '../config';
+
+const projects = (await getCollection('projects', ({ data }) => data.published && data.featured))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 2);
+---
+
+<BaseLayout>
+  <section class="home-hero">
+    <div class="hero-orbit" aria-hidden="true"></div>
+    <div class="shell hero-grid">
+      <p class="hero-kicker">Independent technology company · US / Taiwan</p>
+      <h1>讓明日，<br /><span class="accent">持續向前。</span></h1>
+      <div class="hero-bottom">
+        <span class="scroll-note">Scroll to explore</span>
+        <p>Tomoroll 結合產品思維、體驗設計與軟體開發，把值得實現的想法，推進成穩健且能持續成長的數位產品。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement-section">
+    <div class="shell statement-grid">
+      <p class="eyebrow"><span aria-hidden="true"></span>Why Tomoroll</p>
+      <p class="statement-copy">
+        Tomorrow 不是等待抵達的目的地。<br />我們從今天開始，和你一起<strong>讓改變發生</strong>。
+      </p>
+    </div>
+  </section>
+
+  <section class="services-section">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="What we do"
+        title="從方向到落地，專注每個真正重要的環節。"
+        description="我們以合作夥伴的方式加入團隊：先釐清問題，再選擇最適合的設計與技術，而不是讓工具決定答案。"
+      />
+      <div class="services-list">
+        {
+          services.map((service) => (
+            <article class="service-item">
+              <span class="service-number">{service.number}</span>
+              <div>
+                <p class="service-english">{service.english}</p>
+                <h3>{service.title}</h3>
+              </div>
+              <div class="service-detail"><p>{service.description}</p></div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <div class="shell">
+      <div class="section-topline">
+        <SectionHeading eyebrow="Selected work" title="我們如何把想法往前推。" />
+        <a class="text-link" href="/projects">查看所有專案 <span aria-hidden="true">↗</span></a>
+      </div>
+      {
+        projects.length > 0 ? (
+          <div class="project-list">
+            {projects.map((project, index) => <ProjectCard project={project} priority={index === 0} />)}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <div class="empty-state-icon" aria-hidden="true"></div>
+            <h2>專案內容準備中</h2>
+            <p>我們正在整理可公開的合作內容，確認後會在這裡分享。</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="location-section">
+    <div class="shell location-grid">
+      <div>
+        <p class="eyebrow" style="color: currentColor"><span aria-hidden="true"></span>Across borders</p>
+        <h2>立足兩地，<br />面向世界。</h2>
+      </div>
+      <div class="location-list">
+        <div class="location-row"><span>Delaware, USA</span><span>Tomoroll LLC</span></div>
+        <div class="location-row"><span>Taiwan</span><span>公司籌備中</span></div>
+        <a class="button light" href="/about" style="margin-top: 32px">認識 Tomoroll <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

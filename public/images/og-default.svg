@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Tomoroll</title>
+  <desc id="desc">讓明日，持續向前。</desc>
+  <rect width="1200" height="630" fill="#f5f0e8"/>
+  <path d="M0 500h1200M820 0v630" stroke="#c9c3b8"/>
+  <circle cx="980" cy="185" r="125" fill="#a8d8c8"/>
+  <circle cx="980" cy="185" r="82" fill="#f26a3d"/>
+  <path d="M926 185h108M980 131v108" stroke="#f5f0e8" stroke-width="13"/>
+  <text x="82" y="115" fill="#182823" font-family="Arial, sans-serif" font-size="42" font-weight="700">Tomoroll</text>
+  <text x="76" y="360" fill="#182823" font-family="Arial, 'Microsoft JhengHei', sans-serif" font-size="88" font-weight="700">讓明日，持續向前。</text>
+  <text x="82" y="555" fill="#627069" font-family="Arial, sans-serif" font-size="22" letter-spacing="4">PRODUCT · DESIGN · TECHNOLOGY</text>
+</svg>

@@ -1,0 +1,30 @@
+---
+import { navigation, SITE } from '../config';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell footer-top">
+    <div>
+      <a class="brand footer-brand" href="/" aria-label="Tomoroll 首頁">
+        <svg class="brand-mark" viewBox="0 0 36 36" aria-hidden="true">
+          <circle cx="18" cy="18" r="15" fill="currentColor"></circle>
+          <path d="M10 18h16M18 10v16" stroke="#182823" stroke-width="3"></path>
+        </svg>
+        <span>Tomoroll</span>
+      </a>
+      <p class="footer-statement">讓明日，持續向前。</p>
+    </div>
+    <nav class="footer-nav" aria-label="頁尾導覽">
+      {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+  </div>
+  <div class="shell footer-bottom">
+    <div>
+      <p>{SITE.legalNameUS} · Delaware, USA</p>
+      <p>{SITE.legalNameTW} · 台灣籌備中</p>
+    </div>
+    <p>© {year} Tomoroll. All rights reserved.</p>
+  </div>
+</footer>

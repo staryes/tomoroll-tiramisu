@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MemberCard from '../components/MemberCard.astro';
+
+const members = (await getCollection('members', ({ data }) => data.published))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="團隊" description="認識 Tomoroll 團隊，以及我們如何透過跨領域協作推進數位產品。">
+  <section class="page-hero">
+    <div class="shell">
+      <p class="eyebrow"><span aria-hidden="true"></span>Our team</p>
+      <h1>不同專長，<br /><em>同一個方向。</em></h1>
+      <p class="page-lead">產品需要多種觀點。我們在策略、設計與工程之間保持開放溝通，讓專業彼此支撐，而不是各自為政。</p>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="shell">
+      {
+        members.length > 0 ? (
+          <div class="team-list">{members.map((member) => <MemberCard member={member} />)}</div>
+        ) : (
+          <div class="empty-state">
+            <div class="empty-state-icon" aria-hidden="true"></div>
+            <h2>團隊資料準備中</h2>
+            <p>我們尊重每位成員的公開意願。個人資料與照片確認完成後，會在這裡正式介紹團隊。</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="location-section">
+    <div class="shell location-grid">
+      <div>
+        <p class="eyebrow" style="color: currentColor"><span aria-hidden="true"></span>Work together</p>
+        <h2>一起推進<br />下一件事。</h2>
+      </div>
+      <div>
+        <p style="margin: 0 0 28px; font-size: 1.1rem">想與 Tomoroll 討論產品或合作機會？歡迎留下你的目標與目前遇到的挑戰。</p>
+        <a class="button light" href="/contact">聯絡我們 <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

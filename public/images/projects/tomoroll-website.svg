@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Tomoroll 品牌網站</title>
+  <desc id="desc">由向前滾動的圓形、視窗與網格組成的抽象視覺</desc>
+  <rect width="1200" height="800" fill="#a8d8c8"/>
+  <g stroke="#182823" opacity=".18">
+    <path d="M0 160h1200M0 320h1200M0 480h1200M0 640h1200"/>
+    <path d="M200 0v800M400 0v800M600 0v800M800 0v800M1000 0v800"/>
+  </g>
+  <rect x="120" y="120" width="720" height="500" rx="3" fill="#f5f0e8" stroke="#182823" stroke-width="4"/>
+  <path d="M120 185h720" stroke="#182823" stroke-width="4"/>
+  <circle cx="158" cy="152" r="10" fill="#f26a3d"/>
+  <circle cx="192" cy="152" r="10" fill="#182823" opacity=".25"/>
+  <circle cx="226" cy="152" r="10" fill="#182823" opacity=".25"/>
+  <text x="176" y="290" fill="#182823" font-family="Arial, sans-serif" font-size="36" font-weight="700">Tomoroll</text>
+  <path d="M176 350h420M176 395h340" stroke="#182823" stroke-width="22"/>
+  <path d="M176 478h230" stroke="#f26a3d" stroke-width="12"/>
+  <circle cx="870" cy="440" r="185" fill="#f26a3d"/>
+  <circle cx="870" cy="440" r="122" fill="#182823"/>
+  <path d="M795 440h150M870 365v150" stroke="#f5f0e8" stroke-width="16"/>
+  <path d="M990 620l90 90" stroke="#182823" stroke-width="6"/>
+  <circle cx="1090" cy="720" r="18" fill="#182823"/>
+</svg>
