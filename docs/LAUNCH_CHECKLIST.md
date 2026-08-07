@@ -21,16 +21,18 @@
 
 ## Cloudflare
 
-- [ ] Production branch 為 `main`
-- [ ] Build command 為 `npm run build`
-- [ ] Output directory 為 `dist`
-- [ ] 設定 Node.js 22
-- [ ] 設定 `PUBLIC_SITE_URL`
-- [ ] 設定 `PUBLIC_CONTACT_EMAIL`
+- [x] Worker `tomoroll-tiramisu` 連接 GitHub `main`
+- [x] Build command 為 `npm run build`
+- [x] Output directory 為 `dist`
+- [x] 設定 Node.js 22
+- [x] 正式網址與公開信箱已設定
 - [ ] 設定 Cloudflare Web Analytics token
-- [ ] Preview 與 Production 部署皆成功
-- [ ] 綁定正式網域並強制 HTTPS
-- [ ] 確認 `_headers` 已套用
+- [x] Preview 與 Production 部署皆成功
+- [x] `tomoroll.com` 綁定 Worker 並強制 HTTPS
+- [x] `www` 以 301 轉址至根網域
+- [x] Cloudflare authoritative DNS 與 DNSSEC 已啟用
+- [x] Migadu MX、SPF、DKIM、DMARC 已驗證
+- [x] 確認 `_headers` 已套用
 
 ## 品質
 

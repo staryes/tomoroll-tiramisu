@@ -6,6 +6,8 @@ export const SITE = {
   description:
     'Tomoroll 是一間跨足產品策略、體驗設計與軟體開發的科技公司，陪伴團隊把好想法推進成可持續的數位產品。',
   locale: 'zh-TW',
+  url: 'https://tomoroll.com',
+  contactEmail: 'hello@tomoroll.com',
   ogImage: '/images/og-default.png',
 } as const;
 

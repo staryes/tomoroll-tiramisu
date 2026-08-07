@@ -2,7 +2,16 @@
 
 Tomoroll LLC／優呈翌科技股份有限公司（台灣設立登記辦理中）的官方網站原始碼。
 
-網站以 Astro 靜態輸出，內容透過 Markdown 管理，預計由 GitHub 與 Cloudflare Pages 完成審核、Preview 及正式部署。
+網站以 Astro 靜態輸出，內容透過 Markdown 管理，並由 GitHub 與 Cloudflare Workers Static Assets 自動建置及部署。
+
+## 正式環境
+
+- 正式網址：<https://tomoroll.com>
+- `www.tomoroll.com`：301 轉址至正式網址並保留路徑與查詢參數
+- Cloudflare Worker：`tomoroll-tiramisu`
+- Preview：<https://tomoroll-tiramisu.shoushan.workers.dev>
+- DNS：Cloudflare authoritative DNS，已啟用 DNSSEC
+- Email：Migadu（MX、SPF、DKIM、DMARC）
 
 ## 技術
 
@@ -10,8 +19,8 @@ Tomoroll LLC／優呈翌科技股份有限公司（台灣設立登記辦理中�
 - Tailwind CSS 4
 - Astro Content Collections
 - npm / Node.js 22
-- Cloudflare Pages
-- Cloudflare Web Analytics（以環境變數啟用）
+- Cloudflare Workers Static Assets
+- Cloudflare Web Analytics（可透過建置環境變數啟用）
 
 ## 本機開發
 
@@ -70,38 +79,36 @@ npm run preview  # 預覽 dist/
 
 | 變數 | 用途 | 必填 |
 | --- | --- | --- |
-| `PUBLIC_SITE_URL` | 正式網站完整 origin，用於 canonical 與 Open Graph URL | 正式環境必填 |
+| `PUBLIC_SITE_URL` | 覆寫正式網站 origin；預設為 `https://tomoroll.com` | 選填 |
 | `PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` | Cloudflare Web Analytics site token | 選填 |
-| `PUBLIC_CONTACT_EMAIL` | 聯絡頁公開信箱 | 上線前必填 |
+| `PUBLIC_CONTACT_EMAIL` | 覆寫公開信箱；預設為 `hello@tomoroll.com` | 選填 |
 
 `PUBLIC_*` 會出現在前端產物，只能放可公開資訊。Secret 不可使用此前綴，也不可交由目前這個純靜態網站讀取。
 
-## Cloudflare Pages
+## Cloudflare Workers 部署
 
-連接 GitHub repository 後設定：
+Cloudflare Worker 已連接 GitHub repository，使用以下設定：
 
 | 設定 | 值 |
 | --- | --- |
+| Worker name | `tomoroll-tiramisu` |
 | Production branch | `main` |
 | Build command | `npm run build` |
 | Build output directory | `dist` |
 | Root directory | `/` |
 | Node.js | `22` |
 
-在 Production 與 Preview 環境加入所需環境變數。正式網域確定後，設定 `PUBLIC_SITE_URL` 並重新部署。
-
-建議保護 `main`，要求 PR 與 GitHub Actions `build` 通過後才能合併。Cloudflare GitHub Integration 會為 PR 產生 Preview URL，合併後發布正式環境。
+`main` 更新後由 Cloudflare Git Integration 自動建置並發布。Pull Request 應先通過 GitHub Actions `build`，再使用 Cloudflare Preview 檢查結果。
 
 ## 上線前仍需由公司確認
 
 目前 repository 不虛構尚未提供的公司資訊。以下資料需在正式發布前補齊：
 
-1. 正式網域與公開聯絡信箱。
-2. 經本人同意的團隊姓名、職稱、照片與簡介。
-3. 經客戶或公司確認可公開的專案內容。
-4. 台灣公司完成登記後的正式名稱、統編及登記狀態。
-5. 確認正式社群分享圖符合最新品牌規範。
-6. Cloudflare Web Analytics token。
+1. 經本人同意的團隊姓名、職稱、照片與簡介。
+2. 經客戶或公司確認可公開的專案內容。
+3. 台灣公司完成登記後的正式名稱、統編及登記狀態。
+4. 確認正式社群分享圖符合最新品牌規範。
+5. Cloudflare Web Analytics token。
 
 請依 [`docs/LAUNCH_CHECKLIST.md`](docs/LAUNCH_CHECKLIST.md) 完成發布前檢查。
 

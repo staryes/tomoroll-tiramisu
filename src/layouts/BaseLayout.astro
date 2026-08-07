@@ -18,10 +18,10 @@ const {
   noindex = false,
 } = Astro.props;
 const pageTitle = title === SITE.title ? title : `${title}｜${SITE.name}`;
-const configuredSite = import.meta.env.PUBLIC_SITE_URL?.replace(/\/$/, '');
-const canonical = configuredSite ? `${configuredSite}${Astro.url.pathname}` : undefined;
-const socialImage = configuredSite ? new URL(image, configuredSite).toString() : undefined;
-const analyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
+const configuredSite = (import.meta.env.PUBLIC_SITE_URL?.trim() || SITE.url).replace(/\/$/, '');
+const canonical = `${configuredSite}${Astro.url.pathname}`;
+const socialImage = new URL(image, configuredSite).toString();
+const analyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN?.trim();
 ---
 
 <!doctype html>

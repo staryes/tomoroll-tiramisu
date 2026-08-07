@@ -25,7 +25,7 @@ Tomoroll 需要一個能清楚說明公司定位、同時方便團隊長期維�
 - 建立一致的視覺系統，讓「向明日推進」成為網站的主要動態意象。
 - 使用 Astro、TypeScript 與 Tailwind CSS 製作靜態網站。
 - 以 Markdown 管理團隊與專案內容，保留審核及版本紀錄。
-- 透過 Cloudflare Pages 提供 Preview、全球 CDN 與自動部署。
+- 透過 Cloudflare Workers Static Assets 提供 Preview、全球 CDN 與自動部署。
 
 ## 成果
 
