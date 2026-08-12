@@ -35,7 +35,7 @@ const zhTW = {
   'label.inDevelopment': '開發中',
 
   'empty.products': '產品內容準備中',
-  'empty.productsBody': '第一項計畫的概念說明正在整理，確認後會在這裡公開。',
+  'empty.productsBody': '第一項計畫的需求調查正在進行，確認可公開內容後會在這裡更新。',
   'empty.team': '成員簡介準備中',
   'empty.teamBody': '我們尊重每位成員的公開意願，資料與照片確認完成後會在這裡介紹。',
 
@@ -65,7 +65,7 @@ const en = {
 
   'empty.products': 'Product pages in preparation',
   'empty.productsBody':
-    'The concept for our first programme is being written up and will appear here once confirmed.',
+    'Needs research for our first programme is underway. More will appear here once public details are confirmed.',
   'empty.team': 'Team profiles in preparation',
   'empty.teamBody':
     'We publish a profile only with the person’s consent. Profiles will appear here once confirmed.',
