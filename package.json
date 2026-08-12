@@ -23,7 +23,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "subset-font": "^2.5.0",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=22.12.0"
