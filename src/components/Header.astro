@@ -1,44 +1,97 @@
 ---
+import BrandLockup from './brand/BrandLockup.astro';
 import { navigation } from '../config';
+import { LOCALES, LOCALE_META, type Locale } from '../i18n/config';
+import { localizePath, stripLocale } from '../i18n/routing';
+import { useTranslations } from '../i18n/ui';
 
 interface Props {
+  locale: Locale;
   currentPath: string;
+  alternates: Partial<Record<Locale, string>>;
+  /**
+   * The design puts the navigation directly on the hero in white, with no
+   * header bar of its own. Interior pages get the ordinary version: rose links
+   * on the page background.
+   */
+  variant?: 'overlay' | 'solid';
 }
 
-const { currentPath } = Astro.props;
-const isActive = (href: string) =>
-  href === '/projects' ? currentPath.startsWith('/projects') : currentPath === href;
+const { locale, currentPath, alternates, variant = 'solid' } = Astro.props;
+const t = useTranslations(locale);
+
+// Compare unprefixed, trailing-slashed paths on both sides. Mixing the two
+// conventions is the classic source of a nav item that never highlights.
+const here = stripLocale(currentPath);
+
+/**
+ * Only page-level items get `aria-current="page"`. The three anchors all live
+ * on the home page, so marking them by pathname would light up all three at
+ * once; which section you are actually looking at is a scroll position, not a
+ * URL, and claiming otherwise in the accessibility tree would be wrong.
+ */
+const items = navigation.map((item) => ({
+  href: `${localizePath(item.href, locale)}${item.hash}`,
+  label: t(item.key),
+  current: !item.hash && here === item.href,
+}));
 ---
 
-<header class="site-header">
+<header class:list={['site-header', `site-header-${variant}`]}>
   <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="Tomoroll 首頁">
-      <svg class="brand-mark" viewBox="0 0 36 36" aria-hidden="true">
-        <circle cx="18" cy="18" r="15" fill="currentColor"></circle>
-        <path d="M10 18h16M18 10v16" stroke="#f5f0e8" stroke-width="3"></path>
-      </svg>
-      <span>Tomoroll</span>
+    <a class="brand-link" href={localizePath('/', locale)} aria-label={t('a11y.home')}>
+      <BrandLockup width="112px" />
     </a>
 
-    <nav class="desktop-nav" aria-label="主要導覽">
+    <nav class="desktop-nav" aria-label={t('nav.home')}>
       {
-        navigation.map((item) => (
-          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+        items.map((item) => (
+          <a href={item.href} aria-current={item.current ? 'page' : undefined}>
             {item.label}
           </a>
         ))
       }
+
+      {/* Plain links, no script — public/_headers sets `script-src 'self'`, so an
+          inline handler would need a CSP hash. */}
+      <span class="lang-switch" role="group" aria-label={t('a11y.language')}>
+        {
+          LOCALES.map((l) =>
+            l === locale ? (
+              <span aria-current="true" lang={LOCALE_META[l].htmlLang}>
+                {LOCALE_META[l].label}
+              </span>
+            ) : (
+              <a
+                href={alternates[l] ?? localizePath('/', l)}
+                hreflang={LOCALE_META[l].hreflang}
+                lang={LOCALE_META[l].htmlLang}
+              >
+                {LOCALE_META[l].label}
+              </a>
+            ),
+          )
+        }
+      </span>
     </nav>
 
+    {/* <details> rather than a script, for the same CSP reason. */}
     <details class="mobile-menu">
-      <summary aria-label="開啟導覽選單">
-        <span></span><span></span>
+      <summary aria-label={t('a11y.menu')}>
+        <span></span><span></span><span></span>
       </summary>
-      <nav aria-label="行動版導覽">
+      <nav aria-label={t('nav.home')}>
         {
-          navigation.map((item) => (
-            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+          items.map((item) => (
+            <a href={item.href} aria-current={item.current ? 'page' : undefined}>
               {item.label}
+            </a>
+          ))
+        }
+        {
+          LOCALES.filter((l) => l !== locale).map((l) => (
+            <a href={alternates[l] ?? localizePath('/', l)} lang={LOCALE_META[l].htmlLang}>
+              {LOCALE_META[l].label}
             </a>
           ))
         }

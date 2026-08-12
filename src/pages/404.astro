@@ -1,14 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+
+/**
+ * Bilingual on purpose.
+ *
+ * Whether Cloudflare Workers Static Assets serves a locale-specific 404 for
+ * `/en/*` depends on the `not_found_handling` setting, which lives in the
+ * dashboard and is not recorded in this repo. Putting both languages on the one
+ * root 404 is correct under either behaviour, so it does not need that answer.
+ *
+ * `alternates={{}}` suppresses hreflang entirely — an error page should not
+ * advertise language variants.
+ */
 ---
 
-<BaseLayout title="找不到頁面" description="你所尋找的頁面不存在。" noindex>
-  <section class="not-found">
+<BaseLayout
+  locale={DEFAULT_LOCALE}
+  title="找不到頁面 — Page not found"
+  description="你所尋找的頁面不存在。The page you are looking for does not exist."
+  noindex
+  alternates={{}}
+>
+  <section class="section bg-cream">
     <div class="shell">
-      <p class="not-found-code" aria-hidden="true">404</p>
-      <h1>這一頁沒有滾到明天。</h1>
-      <p class="not-found-copy">網址可能已變更，或這個頁面尚未存在。</p>
-      <a class="button primary" href="/">回到首頁 <span aria-hidden="true">→</span></a>
+      <p class="eyebrow">404</p>
+
+      <div class="section-head" lang="zh-TW">
+        <h1 class="display">找不到這個頁面。</h1>
+        <p class="body lead">網址可能已變更，或這個頁面尚未公開。</p>
+        <p><a class="text-link" href="/">回到首頁 <span aria-hidden="true">→</span></a></p>
+      </div>
+
+      <div class="section-head not-found-en" lang="en">
+        <h2 class="h2">Page not found.</h2>
+        <p class="body lead">The address may have changed, or the page is not published yet.</p>
+        <p><a class="text-link" href="/en/">Back to home <span aria-hidden="true">→</span></a></p>
+      </div>
     </div>
   </section>
 </BaseLayout>

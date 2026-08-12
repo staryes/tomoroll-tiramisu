@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../config';
+import type { Locale } from '../../i18n/config';
+import { useTranslations } from '../../i18n/ui';
+import { aboutCopy } from '../../i18n/copy/pages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = aboutCopy[locale];
+const t = useTranslations(locale);
+
+/**
+ * Company facts are assembled here rather than stored in the copy module,
+ * because the values are facts from SITE and must not drift; only the labels
+ * are translated.
+ */
+const facts =
+  locale === 'zh-TW'
+    ? [
+        { label: '美國法人', value: SITE.legalNameUS },
+        { label: '設立地', value: SITE.registrationUS },
+        { label: '台灣法人', value: SITE.legalNameTW },
+        { label: '台灣登記狀態', value: '籌備處，預計 2026 年 9 月完成設立登記' },
+      ]
+    : [
+        { label: 'US entity', value: SITE.legalNameUS },
+        { label: 'Registered in', value: SITE.registrationUS },
+        { label: 'Taiwan entity', value: SITE.legalNameTW },
+        { label: 'Taiwan status', value: 'Preparatory office; registration expected September 2026' },
+      ];
+---
+
+<BaseLayout locale={locale} title={c.hero.title} description={c.hero.body?.[0]}>
+  <section class="section bg-cream">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{c.hero.eyebrow}</p>
+        <h1 class="display">{c.hero.title}</h1>
+      </div>
+      {c.hero.body?.map((paragraph) => <p class="body lead">{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="section bg-pink">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{c.capabilities.eyebrow}</p>
+        <h2 class="h2">{c.capabilities.title}</h2>
+      </div>
+      <div class="capability-list">
+        {
+          c.capabilities.items.map((item) => (
+            <article class="capability">
+              <span class="num">{item.number}</span>
+              <div>
+                <h3 class="h3">{item.title}</h3>
+                {item.body && <p>{item.body}</p>}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lilac">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{c.contract.eyebrow}</p>
+        <h2 class="h2">{c.contract.title}</h2>
+      </div>
+      {c.contract.body?.map((paragraph) => <p class="body lead">{paragraph}</p>)}
+    </div>
+  </section>
+
+  {/* Team sits inside About rather than on its own page — decided 2026-08-09.
+      The designer's artboards have no team page, so this section is an
+      extension of the visual language rather than a reproduction of it. */}
+  <section class="section bg-cream" id="team">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{c.team.eyebrow}</p>
+        <h2 class="h2">{c.team.title}</h2>
+        {c.team.body?.map((paragraph) => <p class="body">{paragraph}</p>)}
+      </div>
+
+      <div class="empty-state">
+        <h3 class="h3">{t('empty.team')}</h3>
+        <p class="body">{t('empty.teamBody')}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-pink">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{c.company.eyebrow}</p>
+        <h2 class="h2">{c.company.title}</h2>
+      </div>
+      <dl class="fact-list">
+        {
+          facts.map((fact) => (
+            <div class="fact">
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+</BaseLayout>

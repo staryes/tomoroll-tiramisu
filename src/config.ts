@@ -1,40 +1,44 @@
+/**
+ * Language-independent facts about the company and the deployment.
+ *
+ * Anything that would need translating lives under `src/i18n/` instead:
+ * UI strings in `ui.ts`, page prose in `copy/`, site metadata in `site.ts`.
+ *
+ * These values are the single source of truth — pages must read company
+ * information from here rather than repeating it as literals in markup.
+ */
 export const SITE = {
   name: 'Tomoroll',
   legalNameUS: 'Tomoroll LLC',
   legalNameTW: '優呈翌科技股份有限公司',
-  title: 'Tomoroll｜讓明日，持續向前',
-  description:
-    'Tomoroll 是一間跨足產品策略、體驗設計與軟體開發的科技公司，陪伴團隊把好想法推進成可持續的數位產品。',
-  locale: 'zh-TW',
+  registrationUS: 'Delaware, United States',
+  /**
+   * The Taiwan entity is a 籌備處 (preparatory office); registration is expected
+   * to complete in September 2026. Stated plainly rather than glossed over —
+   * grant reviewers read this as a status, and vagueness costs more than the
+   * status itself. Update here when registration completes.
+   */
+  registrationTWStatus: 'preparatory',
+  registrationTWExpected: '2026-09',
   url: 'https://tomoroll.com',
   contactEmail: 'hello@tomoroll.com',
   ogImage: '/images/og-default.png',
 } as const;
 
+/**
+ * Primary navigation, in the order the design shows it.
+ *
+ * Per the designer's walkthrough video, this is a single scrolling page:
+ * Home, Products and About Us are anchors within it, and only Contact is a
+ * separate page. `hash` marks the anchor items so the header can tell the two
+ * kinds apart when deciding what counts as the current page.
+ *
+ * `href` is locale-independent; `localizePath()` adds the prefix. `key` indexes
+ * into the UI dictionary so labels stay with the other translated strings.
+ */
 export const navigation = [
-  { href: '/about', label: '關於我們' },
-  { href: '/team', label: '團隊' },
-  { href: '/projects', label: '專案' },
-  { href: '/contact', label: '聯絡' },
-] as const;
-
-export const services = [
-  {
-    number: '01',
-    title: '產品策略',
-    english: 'Product Strategy',
-    description: '從問題定義、需求梳理到執行路徑，讓投入的每一步都有清楚理由。',
-  },
-  {
-    number: '02',
-    title: '體驗與介面設計',
-    english: 'Experience Design',
-    description: '把複雜流程轉為直覺、清楚且兼顧品牌辨識度的使用體驗。',
-  },
-  {
-    number: '03',
-    title: '網站與產品開發',
-    english: 'Web Development',
-    description: '以穩定、可維護的技術落實產品，並為後續成長保留彈性。',
-  },
+  { href: '/', hash: '', key: 'nav.home' },
+  { href: '/', hash: '#products', key: 'nav.products' },
+  { href: '/', hash: '#about', key: 'nav.about' },
+  { href: '/contact/', hash: '', key: 'nav.contact' },
 ] as const;

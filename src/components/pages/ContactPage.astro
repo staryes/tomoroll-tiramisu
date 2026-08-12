@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../config';
+import type { Locale } from '../../i18n/config';
+import { contactCopy } from '../../i18n/copy/pages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = contactCopy[locale];
+---
+
+<BaseLayout locale={locale} title={c.hero.title} description={c.hero.body?.[0]}>
+  <section class="section bg-cream">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{c.hero.eyebrow}</p>
+        <h1 class="display">{c.hero.title}</h1>
+      </div>
+      {c.hero.body?.map((paragraph) => <p class="body lead">{paragraph}</p>)}
+
+      {/* The design includes a full contact form with a success state. That
+          needs somewhere to post to, and this site is a static build with no
+          backend — so the first release is an email link. The form is built
+          when there are products to support. */}
+      <div class="offset-panel mark-top contact-panel">
+        <p class="eyebrow">{c.emailLabel}</p>
+        <p class="contact-email">
+          <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-pink">
+    <div class="shell">
+      <div class="capability-list contact-routes">
+        {
+          c.routes.map((route) => (
+            <article class="capability">
+              <h2 class="h3">{route.title}</h2>
+              <p>{route.body}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="body muted grid-footer">{c.note}</p>
+    </div>
+  </section>
+</BaseLayout>

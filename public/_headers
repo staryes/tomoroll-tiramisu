@@ -2,10 +2,20 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; img-src 'self' data:; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
 
-/assets/*
+# Astro emits hashed build assets to /_astro/, not /assets/ — these filenames
+# change whenever their contents do, so they are safe to cache forever.
+/_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
 /images/*
+  Cache-Control: public, max-age=86400
+
+# Font filenames are stable, but their contents are subsetted to the site copy
+# (scripts/build-fonts.mjs), so they change when the copy does. A day of staleness
+# is harmless: any character missing from a stale subset falls back per-glyph to
+# the system CJK font rather than failing to render.
+/fonts/*
   Cache-Control: public, max-age=86400

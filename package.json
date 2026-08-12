@@ -4,19 +4,25 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "fonts": "node scripts/build-fonts.mjs",
+    "predev": "npm run fonts",
     "dev": "astro dev",
     "start": "astro dev",
+    "prebuild": "npm run fonts",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check"
   },
   "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/noto-serif-tc": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.0",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "subset-font": "^2.5.0",
     "typescript": "^5.9.3"
   },
   "engines": {

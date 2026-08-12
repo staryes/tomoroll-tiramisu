@@ -20,7 +20,7 @@ const projects = (await getCollection('projects', ({ data }) => data.published))
     <div class="shell">
       {
         projects.length > 0 ? (
-          <div class="project-list" style="margin-top: 0">
+          <div class="project-list flush-top">
             {projects.map((project, index) => <ProjectCard project={project} priority={index === 0} />)}
           </div>
         ) : (

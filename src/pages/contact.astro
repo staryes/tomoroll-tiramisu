@@ -1,34 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../config';
-
-const email = import.meta.env.PUBLIC_CONTACT_EMAIL?.trim() || SITE.contactEmail;
+import ContactPage from '../components/pages/ContactPage.astro';
 ---
 
-<BaseLayout title="聯絡我們" description="與 Tomoroll 討論數位產品、網站開發或合作機會。">
-  <section class="contact-wrap">
-    <div class="shell contact-grid">
-      <div>
-        <p class="eyebrow"><span aria-hidden="true"></span>Start a conversation</p>
-        <h1 class="contact-title">下一步，<br /><em>一起往前。</em></h1>
-        <p class="contact-copy">如果你正在規劃新的數位產品、重新整理既有體驗，或只是想釐清接下來該往哪裡走，都歡迎與我們談談。</p>
-      </div>
-      <aside class="contact-panel" aria-label="聯絡資訊">
-        <h2>Contact</h2>
-        <div class="contact-line">
-          <span class="contact-label">Email</span>
-          <a class="contact-email" href={`mailto:${email}`}>{email}</a>
-        </div>
-        <div class="contact-line">
-          <span class="contact-label">US</span>
-          <span>Tomoroll LLC · Delaware</span>
-        </div>
-        <div class="contact-line">
-          <span class="contact-label">Taiwan</span>
-          <span>優呈翌科技股份有限公司 · 籌備中</span>
-        </div>
-        <p class="contact-notice">本網站第一版不蒐集表單資料。請勿透過未經確認的管道傳送密碼、金鑰或其他敏感資訊。</p>
-      </aside>
-    </div>
-  </section>
-</BaseLayout>
+<ContactPage locale="zh-TW" />

@@ -1,0 +1,87 @@
+/**
+ * Design tokens, derived from the designer's artboards
+ * (webpage design/TOMORoll Website (1).svg, 9 artboards at 1920px).
+ *
+ * Colours below are the exact values sampled from the source file. The `-ink`
+ * variants are additions, not part of the delivered palette — see the note in
+ * the text-colour block for why they are necessary.
+ */
+
+:root {
+  /* ---- Brand palette, sampled from the design ---- */
+  --olive: #807740;
+  --rose: #bc809b;
+  --lilac: #dec5df;
+  --blush: #e2b4c6;
+  --pink-100: #f7d7e8;
+  --pink-50: #fdf2f7;
+  --pink-25: #f9edf3;
+  --cream: #f9f7ed;
+
+  /* ---- Text colours ----
+   * The delivered palette does not have an accessible body-text colour.
+   * Measured against WCAG 2.1 (4.5:1 for body text, 3:1 for large text):
+   *   olive #807740 on cream  = 4.22:1  → fails body, passes large
+   *   rose  #bc809b on cream  = 2.92:1  → fails both
+   *   rose  #bc809b on pink50 = 2.87:1  → fails both (this is the contact
+   *                                        form's label colour in the design)
+   *   olive #807740 on lilac  = 2.84:1  → fails both
+   *
+   * So the brand hues stay exactly as drawn for fills, large display type and
+   * decoration, and these darker members of the same families carry small text.
+   * They read as the same colours; they are the same hue, lower in lightness.
+   */
+  --olive-ink: #5c562e; /* 6.92:1 on cream, 4.66:1 on lilac */
+  --rose-ink: #8a4f69; /* 5.75:1 on cream — large text only on lilac (3.87:1) */
+
+  /* Text on the olive band and over photography. */
+  --on-olive: #ffffff; /* 4.54:1 on olive */
+
+  /* ---- Typography ----
+   * `Tomoroll Display` and `Tomoroll CJK` are aliases defined in
+   * public/fonts/fonts.css. Display currently resolves to Cormorant Garamond,
+   * a stand-in for the designer's serif — that font is outlined in the source
+   * artboards, so its name is not recoverable. Because the alias is neutral,
+   * swapping in the real family touches only fonts.css and build-fonts.mjs.
+   *
+   * Latin first, CJK second: the browser falls through per glyph, so Latin
+   * characters take the display face and Han characters take the CJK face.
+   */
+  --font-body:
+    'Tomoroll Display', 'Tomoroll CJK', ui-serif, Georgia, 'Songti TC', 'PingFang TC', serif;
+
+  /* Script-specific tracking. Negative tracking tightens Latin sidebearings but
+     crushes full-width CJK glyphs, which already sit in an em box. */
+  --tracking-display: 0em;
+  --tracking-heading: 0em;
+  --tracking-latin: -0.01em;
+  --tracking-latin-wide: 0.06em;
+
+  /* CJK display type needs more leading than Latin — the glyph box is
+     full-height, so there is no ascender/descender slack to borrow from. */
+  --leading-display: 1.15;
+  --leading-heading: 1.3;
+  --leading-body: 1.8;
+
+  /* ---- Layout ----
+   * The artboards are 1920 wide. Fixed pixel values from the design are
+   * expressed here as ratios of that canvas so they scale rather than break.
+   */
+  --shell: min(1560px, calc(100vw - var(--edge-total) - 96px));
+
+  /* The two vertical bars down the right edge: olive 45.8px + rose 43.2px on a
+     1920 canvas. Kept proportional, with a floor so they stay visible on
+     phones and a ceiling so they do not dominate ultrawide screens. */
+  --edge-bar: clamp(14px, 2.38vw, 46px);
+  --edge-total: calc(var(--edge-bar) * 2);
+
+  /* Horizontal bands. 168.7px and 117.3px on a 1920 canvas. */
+  --band-tall: clamp(88px, 8.8vw, 169px);
+  --band-short: clamp(64px, 6.1vw, 117px);
+
+  --radius-pill: 999px;
+
+  /* Section rhythm. */
+  --space-section: clamp(72px, 9vw, 152px);
+  --space-block: clamp(32px, 4vw, 64px);
+}

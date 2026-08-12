@@ -1,0 +1,255 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrandLockup from '../brand/BrandLockup.astro';
+import Brace from '../brand/Brace.astro';
+import { SITE } from '../../config';
+import type { Locale } from '../../i18n/config';
+import { localizePath } from '../../i18n/routing';
+import { useTranslations } from '../../i18n/ui';
+import { homeCopy } from '../../i18n/copy/home';
+import { aboutCopy, productsCopy } from '../../i18n/copy/pages';
+import { getMembers, getProductLines, textFor } from '../../lib/content';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = homeCopy[locale];
+const products = productsCopy[locale];
+const about = aboutCopy[locale];
+const t = useTranslations(locale);
+
+// Product lines and team members come from content collections, so filling them
+// in is a matter of adding a markdown file. Both are empty until someone sets
+// `published: true`, and each section falls back to an explanatory empty state
+// rather than an empty grid.
+const lines = await getProductLines();
+const members = await getMembers();
+
+/**
+ * One scrolling page, per the designer's walkthrough: Home, Products and About
+ * are sections here; only Contact is a separate route.
+ *
+ * Decorative dots behind the statement. Only the count lives here — position,
+ * size and parallax depth are :nth-child rules in global.css. They cannot be
+ * inline styles: the CSP sets `style-src 'self'` with no 'unsafe-inline', so a
+ * style attribute would be blocked in production while still working locally.
+ */
+const DOT_COUNT = 8;
+
+const facts =
+  locale === 'zh-TW'
+    ? [
+        { label: '美國法人', value: SITE.legalNameUS },
+        { label: '設立地', value: SITE.registrationUS },
+        { label: '台灣法人', value: SITE.legalNameTW },
+        { label: '台灣登記狀態', value: '籌備處，預計 2026 年 9 月完成設立登記' },
+      ]
+    : [
+        { label: 'US entity', value: SITE.legalNameUS },
+        { label: 'Registered in', value: SITE.registrationUS },
+        { label: 'Taiwan entity', value: SITE.legalNameTW },
+        {
+          label: 'Taiwan status',
+          value: 'Preparatory office; registration expected September 2026',
+        },
+      ];
+---
+
+<BaseLayout locale={locale} headerVariant="overlay">
+  {/* The hero pins for the length of its wrapper while the olive block shrinks
+      and the photograph opens up behind it. Without scroll-driven animation
+      support the wrapper collapses to one screen and this is simply the
+      artboard's opening frame — see the @supports block in global.css. */}
+  <div class="hero-scroll" id="top">
+    <section class="hero">
+      <div class="hero-strip" aria-hidden="true"></div>
+      <div class="hero-media" aria-hidden="true"></div>
+      <div class="hero-brand">
+        <BrandLockup width="76%" decorative />
+      </div>
+      <p class="hero-caption">{c.heroCaption}</p>
+    </section>
+  </div>
+
+  <section class="statement-block dot-field bg-cream">
+    {Array.from({ length: DOT_COUNT }, () => <span class="dot" aria-hidden="true" />)}
+    <p class="statement" lang="en">{c.statement}</p>
+  </section>
+
+  {/* The pink divider turns a full rotation as it crosses the viewport. */}
+  <div class="band-rotator" aria-hidden="true"><span class="band"></span></div>
+
+  <section class="section bg-pink">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{c.intro.eyebrow}</p>
+        <h1 class="h2">{c.intro.title}</h1>
+      </div>
+      {c.intro.body.map((paragraph) => <p class="body lead">{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="section bg-cream" id="products">
+    <div class="shell">
+      <div class="section-head centred">
+        <p class="eyebrow">{products.hero.eyebrow}</p>
+        <h2 class="h2">{products.hero.title}</h2>
+        <Brace class="brace" />
+        {products.hero.body?.map((paragraph) => <p class="body">{paragraph}</p>)}
+      </div>
+
+      {
+        lines.length > 0 ? (
+          <div class="tile-grid">
+            {lines.map((entry) => {
+              const { text, isFallback } = textFor(entry.data.translations, locale);
+              return (
+                <article class="tile">
+                  {entry.data.cover && (
+                    <img src={entry.data.cover} alt={text.coverAlt ?? ''} loading="lazy" />
+                  )}
+                  {/* A line with no English block still shows, in Chinese, marked
+                      with lang so screen readers switch voice. A product category
+                      disappearing between languages would be worse. */}
+                  <h3 class="h3" lang={isFallback ? 'zh-TW' : undefined}>
+                    {text.title}
+                  </h3>
+                  <p class="eyebrow">{t('label.inDevelopment')}</p>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <h3 class="h3">{t('empty.products')}</h3>
+            <p class="body">{t('empty.productsBody')}</p>
+          </div>
+        )
+      }
+
+      {/* Individual product pages are not designed yet — the designer dropped
+          the slide-out panel and has not replaced it. Until then this says so
+          rather than linking somewhere that does not exist. */}
+      <div class="empty-state grid-footer">
+        <h3 class="h3">{products.pendingTitle}</h3>
+        <p class="body">{products.pendingBody}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-lilac" id="about">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{about.hero.eyebrow}</p>
+        <h2 class="h2">{about.hero.title}</h2>
+      </div>
+      {about.hero.body?.map((paragraph) => <p class="body lead">{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="section bg-cream">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{c.capabilities.eyebrow}</p>
+        <h2 class="h2">{c.capabilities.title}</h2>
+        <p class="body">{c.capabilities.lead}</p>
+      </div>
+      <div class="capability-list">
+        {
+          c.capabilities.items.map((item) => (
+            <article class="capability">
+              <span class="num">{item.number}</span>
+              <h3 class="h3">{item.title}</h3>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-pink">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{about.contract.eyebrow}</p>
+        <h2 class="h2">{about.contract.title}</h2>
+      </div>
+      {about.contract.body?.map((paragraph) => <p class="body lead">{paragraph}</p>)}
+    </div>
+  </section>
+
+  {/* Team sits inside the About stretch rather than on its own page —
+      decided 2026-08-09. The artboards have no team page, so this section
+      extends the visual language rather than reproducing it. */}
+  <section class="section bg-cream" id="team">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{about.team.eyebrow}</p>
+        <h2 class="h2">{about.team.title}</h2>
+        {about.team.body?.map((paragraph) => <p class="body">{paragraph}</p>)}
+      </div>
+      {
+        members.length > 0 ? (
+          <div class="member-list">
+            {members.map((entry) => {
+              const { text, isFallback } = textFor(entry.data.translations, locale);
+              return (
+                <article lang={isFallback ? 'zh-TW' : undefined}>
+                  {entry.data.photo ? (
+                    <img
+                      class="member-photo"
+                      src={entry.data.photo}
+                      alt={text.photoAlt ?? ''}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div class="member-photo" aria-hidden="true" />
+                  )}
+                  <p class="eyebrow member-role">{text.role}</p>
+                  <h3 class="h3">{text.name}</h3>
+                  {text.bio && <p>{text.bio}</p>}
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <h3 class="h3">{t('empty.team')}</h3>
+            <p class="body">{t('empty.teamBody')}</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section bg-pink">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{about.company.eyebrow}</p>
+        <h2 class="h2">{about.company.title}</h2>
+      </div>
+      <dl class="fact-list">
+        {
+          facts.map((fact) => (
+            <div class="fact">
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section bg-olive">
+    <div class="shell">
+      <div class="section-head">
+        <p class="eyebrow">{c.contact.eyebrow}</p>
+        <h2 class="h2">{c.contact.title}</h2>
+        <p class="body">{c.contact.body}</p>
+      </div>
+      <a class="circle-button" href={localizePath('/contact/', locale)}>{c.contact.cta}</a>
+    </div>
+  </section>
+</BaseLayout>

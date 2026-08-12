@@ -2,59 +2,123 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../config';
+import { DEFAULT_LOCALE, LOCALES, LOCALE_META, type Locale } from '../i18n/config';
+import { absoluteUrl, alternatesFor } from '../i18n/routing';
+import { siteCopy } from '../i18n/site';
+import { useTranslations } from '../i18n/ui';
 import '../styles/global.css';
 
 interface Props {
+  locale: Locale;
   title?: string;
   description?: string;
   image?: string;
   noindex?: boolean;
+  /** Passed to Header — 'overlay' puts the nav on the hero, as the design does. */
+  headerVariant?: 'overlay' | 'solid';
+  /**
+   * Paths to this page in each locale. Defaults to the same path in every
+   * locale; pass an explicit map when a page exists in only one language, so
+   * hreflang never points at a fallback.
+   */
+  alternates?: Partial<Record<Locale, string>>;
 }
 
-const {
-  title = SITE.title,
-  description = SITE.description,
-  image = SITE.ogImage,
-  noindex = false,
-} = Astro.props;
-const pageTitle = title === SITE.title ? title : `${title}｜${SITE.name}`;
-const configuredSite = (import.meta.env.PUBLIC_SITE_URL?.trim() || SITE.url).replace(/\/$/, '');
-const canonical = `${configuredSite}${Astro.url.pathname}`;
-const socialImage = new URL(image, configuredSite).toString();
+const { locale, image = SITE.ogImage, noindex = false, headerVariant = 'solid' } = Astro.props;
+
+const meta = LOCALE_META[locale];
+const site = siteCopy[locale];
+const t = useTranslations(locale);
+
+const title = Astro.props.title ?? site.title;
+const description = Astro.props.description ?? site.description;
+const pageTitle = title === site.title ? title : `${title}${t('title.separator')}${SITE.name}`;
+
+const origin = (import.meta.env.PUBLIC_SITE_URL?.trim() || SITE.url).replace(/\/$/, '');
+const alternates = Astro.props.alternates ?? alternatesFor(Astro.url.pathname);
+
+// Canonical is derived from the alternates map rather than from the current
+// pathname, which makes it structurally impossible for the canonical URL and
+// the self-referencing hreflang to disagree.
+const canonical = absoluteUrl(alternates[locale] ?? Astro.url.pathname, origin);
+const socialImage = new URL(image, origin).toString();
 const analyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN?.trim();
 ---
 
 <!doctype html>
-<html lang={SITE.locale}>
+<html lang={meta.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f5f0e8" />
+    <meta name="theme-color" content="#f9f7ed" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="canonical" href={canonical} />
+
+    {/* Self-referencing alternates are included deliberately — Google requires
+        the current locale to appear in its own list. Only locales that actually
+        have this page are emitted; pointing hreflang at a fallback is an error. */}
+    {
+      !noindex &&
+        LOCALES.filter((l) => alternates[l]).map((l) => (
+          <link
+            rel="alternate"
+            hreflang={LOCALE_META[l].hreflang}
+            href={absoluteUrl(alternates[l]!, origin)}
+          />
+        ))
+    }
+    {
+      !noindex && alternates[DEFAULT_LOCALE] && (
+        <link
+          rel="alternate"
+          hreflang="x-default"
+          href={absoluteUrl(alternates[DEFAULT_LOCALE]!, origin)}
+        />
+      )
+    }
+
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {
+      LOCALES.filter((l) => l !== locale && alternates[l]).map((l) => (
+        <meta property="og:locale:alternate" content={LOCALE_META[l].ogLocale} />
+      ))
+    }
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    {canonical && <meta property="og:url" content={canonical} />}
-    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
-    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    <meta name="twitter:image" content={socialImage} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/cjk-400.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/display-400.woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
   </head>
   <body>
-    <a class="skip-link" href="#main-content">跳至主要內容</a>
-    <Header currentPath={Astro.url.pathname} />
+    <a class="skip-link" href="#main-content">{t('a11y.skipToContent')}</a>
+
+    {/* The two vertical bars down the right edge of every artboard. */}
+    <div class="edge-bars" aria-hidden="true"><span></span><span></span></div>
+
+    <Header
+      locale={locale}
+      currentPath={Astro.url.pathname}
+      alternates={alternates}
+      variant={headerVariant}
+    />
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
+
     {
       analyticsToken && (
         <script

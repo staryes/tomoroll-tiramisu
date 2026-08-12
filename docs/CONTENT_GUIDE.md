@@ -1,36 +1,105 @@
-# 內容管理指南
+# 內容操作指南
 
-## 新增團隊成員
+網站內容分兩種：**固定文案**（區塊標題、按鈕、說明段落）寫在 `src/i18n/`，
+**會增減的項目**（產品線、產品、團隊成員）放在 `src/content/` 的 Markdown 檔。
+兩種都不需要動版面。
 
-1. 複製 `src/content/members/_template.md`，檔名使用穩定的英文 slug，例如 `wang-xiaoming.md`。
-2. 將照片放在 `public/images/members/`；建議使用 WebP/JPEG、至少 640 × 760 px，並壓縮檔案。
-3. 填寫 frontmatter。`photo` 必須是以 `/` 開頭的 public 路徑。
-4. 取得成員同意並完成 Preview 檢查後，設定 `published: true`。
-5. `order` 數字越小，排序越前面。
+---
 
-## 新增專案
+## 一、固定文案
 
-1. 複製 `src/content/projects/_template.md`，檔名會成為網址，例如 `new-product.md` 對應 `/projects/new-product/`。
-2. 將 3:2 封面圖放在 `public/images/projects/`；建議至少 1200 × 800 px。
-3. 填寫摘要、客戶、年份、服務與正文，並提供能描述圖片的 `coverAlt`。
-4. 只有經授權的內容才能公開；無法公開的成效數字不要猜測或虛構。
-5. 設定 `featured: true` 才會出現在首頁；設定 `published: true` 才會產生公開頁面。
+| 檔案 | 內容 |
+| --- | --- |
+| `src/i18n/site.ts` | 全站標題與描述（SEO、社群分享） |
+| `src/i18n/ui.ts` | 短字串：導覽、按鈕、無障礙標籤、空狀態 |
+| `src/i18n/copy/home.ts` | 首頁各區塊 |
+| `src/i18n/copy/pages.ts` | 產品、關於我們、聯絡三段的文案 |
+| `src/config.ts` | 與語言無關的事實：法定名稱、設立地、聯絡信箱 |
 
-## Frontmatter 檢查
+公司資訊一律從 `src/config.ts` 的 `SITE` 讀取，**不要在頁面裡重複寫死**。
+台灣公司目前是籌備處，登記完成後改 `registrationTWStatus` 與 `registrationTWExpected`。
 
-`src/content.config.ts` 定義所有欄位格式。執行：
+---
 
-```bash
-npm run check
+## 二、Markdown 內容
+
+```
+src/content/
+├── product-lines/          五條產品線（運動、健康、家用器具、居家照護科技、教具）
+├── products/
+│   ├── zh-TW/              個別產品與計畫（中文）
+│   └── en/                 個別產品與計畫（英文）
+└── members/                團隊成員
 ```
 
-欄位遺漏、格式錯誤或年份不合法時，建置會失敗，避免錯誤內容被部署。
+每個資料夾裡都有 `_template.md`。**新增內容就是複製範本、改檔名、填內容。**
+範本檔本身不會被網站讀到。
 
-## 編輯流程
+### 授權規則，一句話
 
-1. 從 `main` 建立 `feature/*` 分支。
-2. 編輯內容並執行 `npm run build`。
-3. Push 並建立 Pull Request。
-4. 在 Cloudflare Preview URL 檢查手機與桌面畫面。
-5. 確認內容授權、拼字、連結及圖片替代文字。
-6. 核准後合併至 `main`。
+> **短欄位同檔雙語，長內文分檔分語言。**
+
+- **產品線、成員**：欄位都很短，而且共用照片與排序，所以**一個檔案裡放兩種語言**。
+  拆成兩個檔只會讓照片和排序漂移。
+- **產品**：有長篇內文，frontmatter 放不下，所以**一個語言一個檔**。
+  `zh-TW/kettle.md` 和 `en/kettle.md` 是同一個產品——**檔名相同就是配對**。
+
+### 一切預設不公開
+
+每個檔案都有 `published`，預設 `false`。**改成 `true` 才會出現在網站上。**
+
+這是刻意的：產品頁可以現在就寫完、之後再上線；團隊成員的資料要等本人同意。
+
+### 中英文不是逐句對譯
+
+中文給政府輔助計劃的評審看，要完整；英文給前期投資人看，要精煉。
+同一個欄位兩邊寫不一樣的內容是正常的，不是錯誤。
+
+**英文區塊可以整塊不寫**，但**不要只填一半**——`en` 要嘛完整、要嘛不存在。
+
+沒有英文時的處理方式不同：
+
+- **產品線與成員**：顯示中文，並標上 `lang="zh-TW"` 讓螢幕閱讀器切換語音。
+  一個產品類別或一位成員在英文頁憑空消失，比出現一句中文更糟。
+- **產品**：整篇不顯示。產品頁是長篇文章，未翻譯的版本會是一整面中文。
+
+### 圖片
+
+放在 `public/images/` 底下對應的資料夾，frontmatter 裡寫從 `/` 開始的路徑。
+
+- 成員照片：`public/images/members/`，建議至少 640×800（4:5 直式）
+- 產品線：`public/images/product-lines/`
+- 產品：`public/images/products/`
+
+`coverAlt` / `photoAlt` 是給看不到圖的人讀的，**中英文各寫各的**。
+
+---
+
+## 三、目前的狀態
+
+- 五條產品線的檔案都建好了，摘要是暫定的，`published: false`。
+  請依實際定位改寫摘要，確認後改成 `true`。
+- `members/example.md` 是範例檔，不要改它；新增成員請複製 `_template.md`。
+- **個別產品頁的版面設計師還沒畫**，所以目前沒有產品詳細頁的路由。
+  內容可以先寫進 `products/`，設計到位後直接就能上。
+
+---
+
+## 四、改完之後
+
+```bash
+npm run build   # 型別與 schema 檢查 ＋ 靜態輸出
+npm run preview # 在本機看結果
+```
+
+新增中文字時，`prebuild` 會自動把字型子集重新產生，不需要手動處理。
+
+**兩個語言的 key 必須齊全**——少一個字串就是 `astro check` 失敗，而 build 會先跑 check，
+所以 CI 和 Cloudflare 部署都會擋下只翻一半的情況。
+
+---
+
+## 五、不可放進 repository
+
+未公開的客戶資料、個資、密碼、API token 或其他機密。
+團隊成員的姓名、職稱、照片與簡介必須先取得本人同意才能公開。
