@@ -48,24 +48,24 @@ export const productsCopy = {
       eyebrow: 'Products',
       title: '五條產品線，尚未上市。',
       body: [
-        '我們的產品涵蓋運動、健康、家用器具、居家照護科技與教具。目前正在整理第一項計畫的概念說明，其餘產品線的內容會陸續公開。',
+        '我們的產品涵蓋運動、健康、家用器具、居家照護科技與教具。第一項計畫聚焦高齡者的日常科技支援，目前正在聯絡不同居住區域的長者，透過需求調查理解他們在手機、網路與居家科技上的實際困境。',
         '產品上市後將於各銷售通路販售，本站不進行線上交易。',
       ],
     },
-    pendingTitle: '第一項計畫的概念說明準備中',
-    pendingBody: '內容確認後會在這裡公開。若你想先了解，歡迎直接來信。',
+    pendingTitle: '高齡者日常科技支援計畫準備中',
+    pendingBody: '我們正在進行需求調查，將以長者熟悉的溝通方式為出發點，設計能協助處理手機、網路與居家科技問題的服務。內容確認後會在這裡公開。',
   },
   en: {
     hero: {
       eyebrow: 'Products',
       title: 'Five lines, none launched yet.',
       body: [
-        'Our products span sport, health, household goods, home-care technology and educational toys. The concept for our first programme is being written up; the other lines will follow.',
+        'Our products span sport, health, household goods, home-care technology and educational toys. Our first programme focuses on everyday technology support for older adults. We are surveying seniors in different residential areas to understand the practical difficulties they face with phones, internet access and home technology.',
         'Products will be sold through retail channels. This site does not sell directly.',
       ],
     },
-    pendingTitle: 'First programme concept in preparation',
-    pendingBody: 'It will be published here once confirmed. Write to us in the meantime if you would like to know more.',
+    pendingTitle: 'Everyday technology support for older adults',
+    pendingBody: 'We are conducting needs research and starting from the ways older adults already communicate, with the aim of designing support for phone, internet and home technology problems. More will be published here once confirmed.',
   },
 } as const satisfies Record<Locale, ProductsCopy>;
 

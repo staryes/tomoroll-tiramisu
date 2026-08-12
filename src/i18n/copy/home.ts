@@ -81,7 +81,7 @@ export const homeCopy = {
     products: {
       eyebrow: 'Products',
       title: '五條產品線，一個共同的判準。',
-      lead: '產品尚未上市。我們正在整理第一項計畫的概念說明，其餘產品線的內容會陸續公開。',
+      lead: '產品尚未上市。第一項計畫聚焦高齡者的日常科技支援，目前正在聯絡不同居住區域的長者，透過需求調查理解他們在手機、網路與居家科技上的實際困境。',
       cta: '查看產品',
       lines: [
         { title: '運動', description: '' },
@@ -130,7 +130,7 @@ export const homeCopy = {
     products: {
       eyebrow: 'Products',
       title: 'Five lines, one standard.',
-      lead: 'Nothing has launched yet. The concept for our first programme is being written up; the remaining lines will follow.',
+      lead: 'Nothing has launched yet. Our first programme focuses on everyday technology support for older adults. We are surveying seniors in different residential areas to understand the practical difficulties they face with phones, internet access and home technology.',
       cta: 'View products',
       lines: [
         { title: 'Sport', description: '' },
