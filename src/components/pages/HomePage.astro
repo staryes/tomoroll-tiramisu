@@ -101,7 +101,7 @@ const facts =
       </div>
 
       {
-        lines.length > 0 ? (
+        lines.length > 0 && (
           <div class="tile-grid">
             {lines.map((entry) => {
               const { text, isFallback } = textFor(entry.data.translations, locale);
@@ -120,11 +120,6 @@ const facts =
                 </article>
               );
             })}
-          </div>
-        ) : (
-          <div class="empty-state">
-            <h3 class="h3">{t('empty.products')}</h3>
-            <p class="body">{t('empty.productsBody')}</p>
           </div>
         )
       }
@@ -179,18 +174,15 @@ const facts =
     </div>
   </section>
 
-  {/* Team sits inside the About stretch rather than on its own page —
-      decided 2026-08-09. The artboards have no team page, so this section
-      extends the visual language rather than reproducing it. */}
-  <section class="section bg-cream" id="team">
-    <div class="shell">
-      <div class="section-head">
-        <p class="eyebrow">{about.team.eyebrow}</p>
-        <h2 class="h2">{about.team.title}</h2>
-        {about.team.body?.map((paragraph) => <p class="body">{paragraph}</p>)}
-      </div>
-      {
-        members.length > 0 ? (
+  {
+    members.length > 0 && (
+      <section class="section bg-cream" id="team">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">{about.team.eyebrow}</p>
+            <h2 class="h2">{about.team.title}</h2>
+            {about.team.body?.map((paragraph) => <p class="body">{paragraph}</p>)}
+          </div>
           <div class="member-list">
             {members.map((entry) => {
               const { text, isFallback } = textFor(entry.data.translations, locale);
@@ -213,15 +205,10 @@ const facts =
               );
             })}
           </div>
-        ) : (
-          <div class="empty-state">
-            <h3 class="h3">{t('empty.team')}</h3>
-            <p class="body">{t('empty.teamBody')}</p>
-          </div>
-        )
-      }
-    </div>
-  </section>
+        </div>
+      </section>
+    )
+  }
 
   <section class="section bg-pink">
     <div class="shell">
