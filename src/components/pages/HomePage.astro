@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BrandLockup from '../brand/BrandLockup.astro';
-import Brace from '../brand/Brace.astro';
 import { SITE } from '../../config';
 import type { Locale } from '../../i18n/config';
 import { localizePath } from '../../i18n/routing';
@@ -21,9 +20,8 @@ const about = aboutCopy[locale];
 const t = useTranslations(locale);
 
 // Product lines and team members come from content collections, so filling them
-// in is a matter of adding a markdown file. Both are empty until someone sets
-// `published: true`, and each section falls back to an explanatory empty state
-// rather than an empty grid.
+// in is a matter of adding a markdown file. Unpublished collections are hidden
+// on the public home page until they make the company look more complete.
 const lines = await getProductLines();
 const members = await getMembers();
 
@@ -55,6 +53,36 @@ const facts =
           value: 'Preparatory office; registration expected September 2026',
         },
       ];
+
+const capabilityIcons = {
+  research:
+    '<circle cx="10" cy="10" r="5"></circle><path d="m14 14 5 5"></path><path d="M10 7v6"></path><path d="M7 10h6"></path>',
+  build:
+    '<path d="M4 18h16"></path><path d="M6 18V8l6-4 6 4v10"></path><path d="M9 18v-6h6v6"></path>',
+  experience:
+    '<path d="M5 5h14v10H8l-3 3V5Z"></path><path d="M9 9h6"></path><path d="M9 12h4"></path>',
+  industrial:
+    '<path d="M4 17 15 6l3 3L7 20H4v-3Z"></path><path d="m13 8 3 3"></path>',
+  integration:
+    '<circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="6" r="3"></circle><circle cx="18" cy="18" r="3"></circle><path d="M9 11l6-3"></path><path d="M9 13l6 3"></path>',
+  market:
+    '<path d="M4 14V8l10-3v12L4 14Z"></path><path d="M14 9h3a3 3 0 0 1 0 6h-3"></path><path d="M6 14l2 5h3"></path>',
+} as const;
+
+const capabilityStages =
+  locale === 'zh-TW'
+    ? [
+        { label: 'Insight', note: '找到真正需要被解決的問題', items: [c.capabilities.items[0], c.capabilities.items[2]] },
+        { label: 'Build', note: '把洞察變成可測試的產品與服務', items: [c.capabilities.items[1], c.capabilities.items[3]] },
+        { label: 'Launch', note: '銜接系統、通路與市場溝通', items: [c.capabilities.items[4], c.capabilities.items[5]] },
+      ]
+    : [
+        { label: 'Insight', note: 'Find the problem worth solving', items: [c.capabilities.items[0], c.capabilities.items[2]] },
+        { label: 'Build', note: 'Shape it into a testable product or service', items: [c.capabilities.items[1], c.capabilities.items[3]] },
+        { label: 'Launch', note: 'Connect systems, channels and market language', items: [c.capabilities.items[4], c.capabilities.items[5]] },
+      ];
+
+const currentProgrammeLabel = locale === 'zh-TW' ? '進行中計畫' : 'Current programme';
 ---
 
 <BaseLayout locale={locale} headerVariant="overlay">
@@ -81,7 +109,7 @@ const facts =
   {/* The pink divider turns a full rotation as it crosses the viewport. */}
   <div class="band-rotator" aria-hidden="true"><span class="band"></span></div>
 
-  <section class="section bg-pink">
+  <section class="section bg-pink" id="about">
     <div class="shell">
       <div class="section-head">
         <p class="eyebrow">{c.intro.eyebrow}</p>
@@ -92,11 +120,10 @@ const facts =
   </section>
 
   <section class="section bg-cream" id="products">
-    <div class="shell">
-      <div class="section-head centred">
+    <div class="shell product-layout">
+      <div class="section-head">
         <p class="eyebrow">{products.hero.eyebrow}</p>
         <h2 class="h2">{products.hero.title}</h2>
-        <Brace class="brace" />
         {products.hero.body?.map((paragraph) => <p class="body">{paragraph}</p>)}
       </div>
 
@@ -124,23 +151,36 @@ const facts =
         )
       }
 
-      {/* Individual product pages are not designed yet — the designer dropped
-          the slide-out panel and has not replaced it. Until then this says so
-          rather than linking somewhere that does not exist. */}
-      <div class="empty-state grid-footer">
+      <article class="programme-card">
+        <p class="eyebrow">{currentProgrammeLabel}</p>
         <h3 class="h3">{products.pendingTitle}</h3>
-        <p class="body">{products.pendingBody}</p>
-      </div>
+        <p>{products.pendingBody}</p>
+        <ul class="programme-steps">
+          {products.pendingPoints.map((point) => <li>{point}</li>)}
+        </ul>
+      </article>
     </div>
   </section>
 
-  <section class="section bg-lilac" id="about">
-    <div class="shell">
+  <section class="section bg-lilac">
+    <div class="shell research-layout">
       <div class="section-head">
-        <p class="eyebrow">{about.hero.eyebrow}</p>
-        <h2 class="h2">{about.hero.title}</h2>
+        <p class="eyebrow">{c.research.eyebrow}</p>
+        <h2 class="h2">{c.research.title}</h2>
       </div>
-      {about.hero.body?.map((paragraph) => <p class="body lead">{paragraph}</p>)}
+      <div class="research-body">
+        {c.research.body.map((paragraph) => <p class="body">{paragraph}</p>)}
+        <dl class="research-points">
+          {
+            c.research.points.map((point) => (
+              <div>
+                <dt>{point.label}</dt>
+                <dd>{point.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
     </div>
   </section>
 
@@ -151,13 +191,27 @@ const facts =
         <h2 class="h2">{c.capabilities.title}</h2>
         <p class="body">{c.capabilities.lead}</p>
       </div>
-      <div class="capability-list">
+      <div class="capability-flow">
         {
-          c.capabilities.items.map((item) => (
-            <article class="capability">
-              <span class="num">{item.number}</span>
-              <h3 class="h3">{item.title}</h3>
-            </article>
+          capabilityStages.map((stage) => (
+            <div class="capability-stage">
+              <div class="stage-head">
+                <p class="stage-label">{stage.label}</p>
+                <p>{stage.note}</p>
+              </div>
+              {stage.items.map((item) => (
+                <article class="capability">
+                  <span class="capability-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={capabilityIcons[item.icon]}></svg>
+                  </span>
+                  <div>
+                    <span class="num">{item.number}</span>
+                    <h3 class="h3">{item.title}</h3>
+                    <p>{item.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           ))
         }
       </div>

@@ -34,21 +34,15 @@ const OUT_DIR = join(ROOT, 'public/fonts');
 /**
  * The families to build.
  *
- * The designer's serif is still pending. Until that is confirmed, the site uses
- * a warmer humanist sans stack: it feels clearer for product development and
- * senior-focused technology support than the earlier editorial serif stand-in.
+ * Chinese uses platform-native Traditional Chinese system fonts. That avoids a
+ * heavy CJK webfont download and keeps the texture closer to the operating
+ * system older visitors already read every day.
  */
 const FAMILIES = [
   {
     id: 'latin',
     pkg: '@fontsource/source-sans-3',
     file: (w) => `source-sans-3-latin-${w}-normal.woff2`,
-    weights: [400, 600, 700],
-  },
-  {
-    id: 'cjk',
-    pkg: '@fontsource/noto-sans-tc',
-    file: (w) => `noto-sans-tc-chinese-traditional-${w}-normal.woff2`,
     weights: [400, 600, 700],
   },
 ];

@@ -19,6 +19,8 @@ import type { Locale } from '../config';
 export interface Capability {
   number: string;
   title: string;
+  body: string;
+  icon: 'research' | 'build' | 'experience' | 'industrial' | 'integration' | 'market';
 }
 
 export interface ProductLine {
@@ -45,6 +47,13 @@ export interface HomeCopy {
     lead: string;
     cta: string;
     lines: ProductLine[];
+  };
+
+  research: {
+    eyebrow: string;
+    title: string;
+    body: string[];
+    points: { label: string; value: string }[];
   };
 
   capabilities: {
@@ -93,14 +102,58 @@ export const homeCopy = {
     capabilities: {
       eyebrow: 'Capabilities',
       title: '從研究、設計到落地，同一個團隊接住。',
-      lead: 'Tomoroll 具備學術與實作背景，能把早期洞察轉成產品規格、服務流程與市場溝通，而不是停在概念或簡報。',
+      lead: '這六項能力不是平行羅列，而是一條產品路徑：先確認需求，再定義可落地的解法，最後整理成能被市場理解的產品與服務。',
       items: [
-        { number: '01', title: '市場調查' },
-        { number: '02', title: '產品開發' },
-        { number: '03', title: '試用者體驗研究' },
-        { number: '04', title: '工業設計' },
-        { number: '05', title: '軟硬體設計整合' },
-        { number: '06', title: '行銷' },
+        {
+          number: '01',
+          title: '市場調查',
+          body: '確認使用者、照顧者與通路端的真實痛點。',
+          icon: 'research',
+        },
+        {
+          number: '02',
+          title: '產品開發',
+          body: '把洞察轉成規格、流程、原型與可測試假設。',
+          icon: 'build',
+        },
+        {
+          number: '03',
+          title: '試用者體驗研究',
+          body: '觀察使用現場，修正不直覺、不安心或不願持續使用的環節。',
+          icon: 'experience',
+        },
+        {
+          number: '04',
+          title: '工業設計',
+          body: '處理介面、形式、材質與日常場景裡的使用細節。',
+          icon: 'industrial',
+        },
+        {
+          number: '05',
+          title: '軟硬體設計整合',
+          body: '讓服務、設備、數位系統與現場支援能接在一起。',
+          icon: 'integration',
+        },
+        {
+          number: '06',
+          title: '行銷',
+          body: '把產品價值說給使用者、家庭、合作夥伴與市場聽懂。',
+          icon: 'market',
+        },
+      ],
+    },
+
+    research: {
+      eyebrow: 'Needs research',
+      title: '第一項計畫正在從長者的生活現場開始。',
+      body: [
+        '我們正在聯絡不同居住區域的長者，了解手機、網路、智慧電視與居家科技在日常生活中造成的阻礙。',
+        '這些訪談會協助我們判斷哪些問題適合電話支援、哪些情境需要到府協助，以及家庭照顧者最需要被減輕的壓力。',
+      ],
+      points: [
+        { label: '研究對象', value: '不同居住型態與區域的高齡者' },
+        { label: '觀察場景', value: '手機、網路、智慧電視、居家科技' },
+        { label: '設計目標', value: '一通電話開始，必要時銜接到府支援' },
       ],
     },
 
@@ -142,14 +195,58 @@ export const homeCopy = {
     capabilities: {
       eyebrow: 'Capabilities',
       title: 'Research, design and launch capability in one team.',
-      lead: 'Tomoroll combines academic and practical experience, turning early insight into product requirements, service flows and market communication instead of stopping at a concept deck.',
+      lead: 'These are not six disconnected services. They form one operating path: validate the need, shape the solution, test the experience and prepare it for market.',
       items: [
-        { number: '01', title: 'Market research' },
-        { number: '02', title: 'Product development' },
-        { number: '03', title: 'User experience research' },
-        { number: '04', title: 'Industrial design' },
-        { number: '05', title: 'Hardware and software integration' },
-        { number: '06', title: 'Marketing' },
+        {
+          number: '01',
+          title: 'Market research',
+          body: 'Identify real pain points across users, caregivers and channels.',
+          icon: 'research',
+        },
+        {
+          number: '02',
+          title: 'Product development',
+          body: 'Translate insight into requirements, workflows, prototypes and testable assumptions.',
+          icon: 'build',
+        },
+        {
+          number: '03',
+          title: 'User experience research',
+          body: 'Observe real use and refine the moments that feel confusing, unsafe or hard to repeat.',
+          icon: 'experience',
+        },
+        {
+          number: '04',
+          title: 'Industrial design',
+          body: 'Shape interfaces, form, materials and daily-use details.',
+          icon: 'industrial',
+        },
+        {
+          number: '05',
+          title: 'Hardware and software integration',
+          body: 'Connect services, devices, digital systems and in-person support.',
+          icon: 'integration',
+        },
+        {
+          number: '06',
+          title: 'Marketing',
+          body: 'Make the value clear to users, families, partners and the market.',
+          icon: 'market',
+        },
+      ],
+    },
+
+    research: {
+      eyebrow: 'Needs research',
+      title: 'The first programme starts in older adults’ everyday settings.',
+      body: [
+        'We are speaking with seniors across different residential areas to understand where phones, internet access, smart TVs and home technology break down in daily life.',
+        'The research helps us decide what can be handled by phone, when in-home support is needed and where family caregivers most need relief.',
+      ],
+      points: [
+        { label: 'Participants', value: 'Older adults across varied living settings' },
+        { label: 'Scenarios', value: 'Phones, internet access, smart TVs and home technology' },
+        { label: 'Design target', value: 'Start by phone, connect to in-home help when needed' },
       ],
     },
 

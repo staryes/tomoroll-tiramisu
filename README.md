@@ -44,17 +44,18 @@ npm run preview  # 預覽 dist/
 
 ## 字型
 
-兩套自架字型，透過中性別名 `Tomoroll Latin`（拉丁）與 `Tomoroll CJK`（中文）使用。
+拉丁字母使用自架字型，透過中性別名 `Tomoroll Latin` 使用。
 `public/_headers` 的 CSP 是 `font-src 'self'`，不能用 Google Fonts，必須自架。
 
-**正式字型仍待設計師確認。** 在設計師回覆前，網站暫用 Source Sans 3 搭配 Noto Sans TC：
-比原本的 editorial serif 佔位更清楚，也更適合目前要傳達的產品開發與高齡科技支援調性。
+**正式字型仍待設計師確認。** 在設計師回覆前，拉丁字母暫用 Source Sans 3；
+繁體中文先使用平台原生字體（macOS 的 PingFang TC、Windows 的微軟正黑體等），
+避免 Noto Sans TC webfont 在目前版面裡顯得過硬，也讓長者與一般訪客看到更熟悉的文字質地。
 拿到設計師的字型後，只需改 `scripts/build-fonts.mjs` 的來源與 `public/fonts/fonts.css`，
 呼叫端完全不動。
 
-完整的中文字型每個字重約 1.3 MB。`scripts/build-fonts.mjs` 會掃描 `src/` 裡出現過的字元，
-把字型裁切成只含這些字，每個字重降到約 80 KB。這個步驟由 `predev` / `prebuild` 自動執行，
-產出的 `public/fonts/*.woff2` 不進版控——它們是衍生檔案，文案改動時會重新產生。
+`scripts/build-fonts.mjs` 會掃描 `src/` 裡出現過的字元，將拉丁 webfont 裁切成只含本站需要的字。
+這個步驟由 `predev` / `prebuild` 自動執行，產出的 `public/fonts/*.woff2` 不進版控——它們是衍生檔案，
+文案改動時會重新產生。
 
 若在部署後發現某些字顯示成系統字型，通常代表該次建置沒有跑到 `prebuild`。
 
@@ -174,7 +175,7 @@ Cloudflare Worker 已連接 GitHub repository，使用以下設定：
 1. 經本人同意的團隊姓名、職稱、照片與簡介。
 2. 第一項計畫可公開的概念說明。
 3. 台灣公司完成登記後的統編與登記狀態（目前為籌備處，預計 2026 年 9 月完成）。
-4. 設計師的正式字型名稱與 webfont 授權（目前以 Source Sans 3／Noto Sans TC 暫代）。
+4. 設計師的正式字型名稱與 webfont 授權（目前拉丁以 Source Sans 3 暫代，中文用平台字體）。
 5. 首頁與產品頁的實際攝影素材。
 6. 確認正式社群分享圖符合品牌規範。
 7. Cloudflare Web Analytics token。

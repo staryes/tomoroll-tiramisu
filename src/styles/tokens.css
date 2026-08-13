@@ -38,17 +38,17 @@
   --on-olive: #ffffff; /* 4.54:1 on olive */
 
   /* ---- Typography ----
-   * `Tomoroll Latin` and `Tomoroll CJK` are aliases defined in
-   * public/fonts/fonts.css. Until the designer confirms the final font, they
-   * resolve to Source Sans 3 and Noto Sans TC: clear enough for a technology
-   * company, warm enough for senior-focused service copy.
+   * `Tomoroll Latin` is defined in public/fonts/fonts.css. Until the designer
+   * confirms the final font, Latin uses Source Sans 3 and Traditional Chinese
+   * uses platform-native fonts: softer than Noto Sans TC here, and familiar to
+   * the older visitors this first programme is studying.
    *
    * Latin first, CJK second: the browser falls through per glyph, so Latin
    * characters take the display face and Han characters take the CJK face.
    */
   --font-body:
-    'Tomoroll Latin', 'Tomoroll CJK', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', sans-serif;
+    'Tomoroll Latin', 'PingFang TC', 'Microsoft JhengHei', 'Heiti TC', 'Noto Sans TC',
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Script-specific tracking. Negative tracking tightens Latin sidebearings but
      crushes full-width CJK glyphs, which already sit in an em box. */
@@ -60,8 +60,8 @@
   /* CJK display type needs more leading than Latin — the glyph box is
      full-height, so there is no ascender/descender slack to borrow from. */
   --leading-display: 1.08;
-  --leading-heading: 1.22;
-  --leading-body: 1.75;
+  --leading-heading: 1.18;
+  --leading-body: 1.68;
 
   /* ---- Layout ----
    * The artboards are 1920 wide. Fixed pixel values from the design are
@@ -82,6 +82,6 @@
   --radius-pill: 999px;
 
   /* Section rhythm. */
-  --space-section: clamp(72px, 9vw, 152px);
-  --space-block: clamp(32px, 4vw, 64px);
+  --space-section: clamp(64px, 7.4vw, 124px);
+  --space-block: clamp(24px, 3.2vw, 52px);
 }

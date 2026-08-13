@@ -32,9 +32,9 @@ body {
   color: var(--olive-ink);
   background: var(--cream);
   font-family: var(--font-body);
-  /* 18px keeps long bilingual pages readable for grant reviewers, partners and
-     older visitors without making the interface feel oversized. */
-  font-size: 18px;
+  /* 17px keeps the page readable while raising the information density of the
+     homepage, especially in Traditional Chinese. */
+  font-size: 17px;
   line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
 
@@ -205,7 +205,7 @@ body {
 
 .h2 {
   font-size: clamp(1.5rem, 2.5vw, 2.5rem);
-  font-weight: 400;
+  font-weight: 600;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-heading);
 }
@@ -213,14 +213,14 @@ body {
 .h3 {
   font-size: clamp(1.15rem, 1.5vw, 1.45rem);
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.32;
 }
 
 .lead {
   /* `ch` is the width of "0", so 60ch is only ~30 Han characters — too narrow.
      Comfortable CJK measure is 30–40 characters, hence the wider value. */
   max-width: 74ch;
-  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
 }
 
 .body {
@@ -593,7 +593,7 @@ body {
 }
 
 .statement-block {
-  padding-block: clamp(96px, 14vw, 220px);
+  padding-block: clamp(72px, 10vw, 160px);
 }
 
 .statement-block .statement {
@@ -611,7 +611,7 @@ body {
   /* Tall enough that the bar still reads as a bar when the turn takes it
      through vertical — in a short band it clips to a stub and the motion is
      lost. */
-  height: clamp(300px, 42vw, 560px);
+  height: clamp(180px, 28vw, 360px);
   place-items: center;
   background: var(--cream);
   /* See the note on .hero — `overflow: clip`, not hidden. The bar is wider than
@@ -635,32 +635,165 @@ body {
 .section-head {
   display: grid;
   margin-bottom: var(--space-block);
-  gap: 14px;
+  gap: 12px;
 }
 
-.capability-list {
+.product-layout,
+.research-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  align-items: start;
+  gap: clamp(32px, 5vw, 88px);
+}
+
+.product-layout .section-head,
+.research-layout .section-head {
+  margin-bottom: 0;
+}
+
+.programme-card {
+  position: relative;
+  display: grid;
+  padding: clamp(24px, 3vw, 38px);
+  border-top: 7px solid var(--olive);
+  gap: 14px;
+  color: var(--olive-ink);
+  background: var(--pink-25);
+}
+
+.programme-card h3 {
+  max-width: 14em;
+  line-height: 1.28;
+}
+
+.programme-card p {
+  max-width: 34em;
+  line-height: 1.65;
+}
+
+.programme-steps {
+  display: grid;
+  margin: 6px 0 0;
+  padding: 0;
+  gap: 10px;
+  list-style: none;
+}
+
+.programme-steps li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 10px;
+  align-items: start;
+  line-height: 1.45;
+}
+
+.programme-steps li::before {
+  width: 9px;
+  height: 9px;
+  margin-top: 0.48em;
+  border: 2px solid var(--rose);
+  border-radius: 50%;
+  content: '';
+}
+
+.research-body {
+  display: grid;
+  gap: 18px;
+}
+
+.research-points {
+  display: grid;
+  margin: 8px 0 0;
+  border-top: 1px solid rgb(92 86 46 / 36%);
+}
+
+.research-points div {
+  display: grid;
+  grid-template-columns: minmax(92px, 0.32fr) 1fr;
+  gap: 18px;
+  padding-block: 14px;
+  border-bottom: 1px solid rgb(92 86 46 / 36%);
+}
+
+.research-points dt {
+  color: var(--rose-ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-latin-wide);
+  text-transform: uppercase;
+}
+
+.research-points dd {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.capability-flow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  border: 1px solid var(--lilac);
-  background: var(--lilac);
+  gap: clamp(18px, 2.4vw, 32px);
 }
 
-.capability {
-  display: flex;
-  min-height: 200px;
-  padding: clamp(20px, 2.2vw, 34px);
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 24px;
-  background: var(--cream);
+.capability-stage {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+}
+
+.stage-head {
+  min-height: 116px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--lilac);
+}
+
+.stage-label {
+  margin-bottom: 8px;
+  color: var(--rose-ink);
+  font-size: clamp(1.45rem, 2.1vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.stage-head p:last-child {
+  max-width: 18em;
+  line-height: 1.45;
+}
+
+.capability-flow .capability {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  padding: 0 0 18px;
+  border-bottom: 1px solid var(--lilac);
+  gap: 16px;
+}
+
+.capability-icon {
+  display: grid;
+  width: 46px;
+  aspect-ratio: 1;
+  border: 1px solid var(--rose);
+  color: var(--rose-ink);
+  place-items: center;
+}
+
+.capability-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .capability .num {
+  display: inline-block;
+  margin-bottom: 4px;
   color: var(--rose-ink);
   font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: var(--tracking-latin-wide);
+}
+
+.capability p {
+  max-width: 42em;
+  margin-top: 6px;
+  line-height: 1.58;
 }
 
 .member-list {
@@ -674,6 +807,22 @@ body {
   aspect-ratio: 4 / 5;
   object-fit: cover;
   background: var(--lilac);
+}
+
+.route-list {
+  display: grid;
+  gap: 1px;
+  border: 1px solid var(--lilac);
+  background: var(--lilac);
+}
+
+.route-card {
+  display: grid;
+  min-height: 160px;
+  padding: clamp(20px, 2.2vw, 34px);
+  align-content: space-between;
+  gap: 20px;
+  background: var(--cream);
 }
 
 .fact-list {
@@ -823,9 +972,21 @@ body {
     aspect-ratio: 4 / 3;
   }
 
-  .capability-list,
   .member-list {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-layout,
+  .research-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .capability-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .stage-head {
+    min-height: 0;
   }
 
   .tile-grid {
@@ -854,10 +1015,18 @@ body {
     min-height: 76px;
   }
 
-  .capability-list,
   .member-list,
   .tile-grid {
     grid-template-columns: 1fr;
+  }
+
+  .capability-flow .capability {
+    grid-template-columns: 1fr;
+  }
+
+  .research-points div {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .footer-top,

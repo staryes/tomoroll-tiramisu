@@ -24,6 +24,7 @@ export interface ProductsCopy {
   /** Shown until the first concept page is published. */
   pendingTitle: string;
   pendingBody: string;
+  pendingPoints: string[];
 }
 
 export interface AboutCopy {
@@ -54,6 +55,7 @@ export const productsCopy = {
     },
     pendingTitle: '高齡者日常科技支援計畫準備中',
     pendingBody: '需求調查正在進行。可公開內容確認後，這裡會更新計畫範圍、服務情境與後續進度。',
+    pendingPoints: ['需求訪談進行中', '服務情境整理中', '可公開範圍確認後更新'],
   },
   en: {
     hero: {
@@ -66,6 +68,7 @@ export const productsCopy = {
     },
     pendingTitle: 'Everyday technology support for older adults',
     pendingBody: 'Needs research is underway. Once public details are confirmed, this section will share the programme scope, service settings and next steps.',
+    pendingPoints: ['Needs interviews underway', 'Service scenarios being mapped', 'Public scope to be updated when confirmed'],
   },
 } as const satisfies Record<Locale, ProductsCopy>;
 

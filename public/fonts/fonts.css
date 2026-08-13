@@ -8,9 +8,9 @@
  * constant across builds and can be cached hard (see public/_headers). Linked
  * from src/layouts/BaseLayout.astro.
  *
- * The designer's final family is still pending. For now the neutral aliases
- * point to a humanist sans stack: Source Sans 3 for Latin and Noto Sans TC for
- * Traditional Chinese, subsetted by scripts/build-fonts.mjs.
+ * The designer's final family is still pending. For now the neutral Latin
+ * alias points to Source Sans 3; Traditional Chinese is intentionally left to
+ * platform-native fonts through the stack in src/styles/tokens.css.
  *
  * font-display: swap — text paints immediately in the system sans and reflows
  * once the subset arrives. For a content site that is the right trade;
@@ -39,28 +39,4 @@
   font-weight: 700;
   font-display: swap;
   src: url('/fonts/latin-700.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Tomoroll CJK';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/cjk-400.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Tomoroll CJK';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/fonts/cjk-600.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Tomoroll CJK';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/cjk-700.woff2') format('woff2');
 }
