@@ -3,11 +3,9 @@ import type { Locale } from '../config';
 /**
  * Homepage copy.
  *
- * DRAFT — Tomoroll writes the final copy. Everything here is assembled from
- * facts Moritz stated directly (the business description, the five product
- * lines, the six capabilities) plus the tagline from the designer's artboard 9.
- * Nothing is invented marketing language, but it is placeholder in the sense
- * that it has not been through the company's own editing.
+ * Homepage copy. The public wording stays conservative: it uses confirmed
+ * facts and the first programme's public concept without exposing internal
+ * comparisons, business-model references or unvalidated claims.
  *
  * Chinese and English are deliberately not translations of each other. Chinese
  * is read by reviewers assessing government grant applications and wants
@@ -66,22 +64,22 @@ export interface HomeCopy {
 
 export const homeCopy = {
   'zh-TW': {
-    heroCaption: '從一個念頭，到能放進生活裡的東西。',
-    statement: 'Small ideas we grasp from a daydream of an elegant life',
+    heroCaption: '從需求調查、產品設計到市場落地。',
+    statement: 'We make everyday technology easier to live with',
 
     intro: {
       eyebrow: 'About Tomoroll',
-      title: '我們把產品從想法帶到市場。',
+      title: 'Tomoroll 把產品從問題帶到市場。',
       body: [
-        'Tomoroll 涵蓋產品策略、設計與開發，並在委外製造後進行販售。我們自有的產品線橫跨運動、健康、家用器具、居家照護科技與教具，也承接外部單位的開發委託。',
-        '這代表一件事：我們不只交出圖面或原型，而是對產品能不能被做出來、能不能被使用、能不能被賣出去負責。',
+        '我們從使用者真正遇到的問題出發，將市場調查、產品策略、設計開發與製造販售放在同一條路徑上思考。',
+        '第一項計畫聚焦高齡者的日常科技支援。團隊正在聯絡不同居住區域的長者，理解手機、網路、智慧電視與居家科技在生活裡造成的實際困難。',
       ],
     },
 
     products: {
       eyebrow: 'Products',
-      title: '五條產品線，一個共同的判準。',
-      lead: '產品尚未上市。第一項計畫聚焦高齡者的日常科技支援，目前正在聯絡不同居住區域的長者，透過需求調查理解他們在手機、網路與居家科技上的實際困境。',
+      title: '以生活場景為起點的產品線。',
+      lead: 'Tomoroll 的產品方向涵蓋運動、健康、家用器具、居家照護科技與教具。現階段優先投入高齡者生活科技支援，先用需求調查確認問題，再規劃可以被長者與家庭真正使用的服務。',
       cta: '查看產品',
       lines: [
         { title: '運動', description: '' },
@@ -94,8 +92,8 @@ export const homeCopy = {
 
     capabilities: {
       eyebrow: 'Capabilities',
-      title: '從調查到上市，六項能力在同一個團隊裡。',
-      lead: '這些能力不外包，也不各自為政。同一群人從頭跟到尾，決策才不會在交接時失真。',
+      title: '從研究、設計到落地，同一個團隊接住。',
+      lead: 'Tomoroll 具備學術與實作背景，能把早期洞察轉成產品規格、服務流程與市場溝通，而不是停在概念或簡報。',
       items: [
         { number: '01', title: '市場調查' },
         { number: '02', title: '產品開發' },
@@ -108,29 +106,29 @@ export const homeCopy = {
 
     contact: {
       eyebrow: 'Contact',
-      title: '想談談嗎？',
-      body: '無論是產品諮詢、合作提案，或是計畫與投資相關的討論，都歡迎直接來信。',
+      title: '合作、計畫與需求訪談，歡迎來信。',
+      body: '若你想了解高齡者科技支援計畫、提供訪談線索，或討論產品開發合作，可以直接與我們聯絡。',
       cta: '寄信給我們',
     },
   },
 
   en: {
-    heroCaption: 'From an idea to something that belongs in daily life.',
-    statement: 'Small ideas we grasp from a daydream of an elegant life',
+    heroCaption: 'From needs research to products that reach the market.',
+    statement: 'We make everyday technology easier to live with',
 
     intro: {
       eyebrow: 'About Tomoroll',
-      title: 'We take products from idea to market.',
+      title: 'Tomoroll takes products from problem to market.',
       body: [
-        'Tomoroll covers product strategy, design and development, then manufactures through partners and sells. Our own lines span sport, health, household goods, home-care technology and educational toys. We also develop products under contract.',
-        'That means we are answerable for whether a product can be built, used and sold — not only for the drawings and the prototype.',
+        'We start with the problems people actually meet, then connect market research, product strategy, design, development, manufacturing and sales into one path.',
+        'Our first programme focuses on everyday technology support for older adults. We are surveying seniors in different residential areas to understand where phones, internet access, smart TVs and home technology break down in daily life.',
       ],
     },
 
     products: {
       eyebrow: 'Products',
-      title: 'Five lines, one standard.',
-      lead: 'Nothing has launched yet. Our first programme focuses on everyday technology support for older adults. We are surveying seniors in different residential areas to understand the practical difficulties they face with phones, internet access and home technology.',
+      title: 'Product lines that begin with real-life settings.',
+      lead: 'Tomoroll works across sport, health, household goods, home-care technology and educational toys. Our current priority is senior-focused technology support: validating the need first, then shaping a service that older adults and families can actually use.',
       cta: 'View products',
       lines: [
         { title: 'Sport', description: '' },
@@ -143,8 +141,8 @@ export const homeCopy = {
 
     capabilities: {
       eyebrow: 'Capabilities',
-      title: 'Six disciplines, one team.',
-      lead: 'None of this is outsourced and none of it works in isolation. The same people see a product through, so decisions do not get lost at the handover.',
+      title: 'Research, design and launch capability in one team.',
+      lead: 'Tomoroll combines academic and practical experience, turning early insight into product requirements, service flows and market communication instead of stopping at a concept deck.',
       items: [
         { number: '01', title: 'Market research' },
         { number: '02', title: 'Product development' },
@@ -157,8 +155,8 @@ export const homeCopy = {
 
     contact: {
       eyebrow: 'Contact',
-      title: 'Let’s talk.',
-      body: 'Product questions, partnership proposals, programme and investment conversations — all welcome by email.',
+      title: 'Partnerships, programme discussions and interview leads are welcome.',
+      body: 'Write to us about senior technology support, interview leads, product development partnerships or programme and investment conversations.',
       cta: 'Email us',
     },
   },

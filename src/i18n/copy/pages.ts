@@ -3,9 +3,9 @@ import type { Locale } from '../config';
 /**
  * Copy for Products, About and Contact.
  *
- * DRAFT — Tomoroll writes the final copy. Assembled from facts Moritz stated
- * directly; nothing here is invented, but none of it has been through the
- * company's own editing.
+ * Public page copy. This wording keeps internal strategy private while making
+ * the first programme and Tomoroll's operating capability concrete enough for
+ * reviewers, partners and early investors.
  *
  * Chinese and English are deliberately not translations of each other. The
  * Chinese About page carries the detail a grant reviewer looks for — capability
@@ -46,26 +46,26 @@ export const productsCopy = {
   'zh-TW': {
     hero: {
       eyebrow: 'Products',
-      title: '五條產品線，尚未上市。',
+      title: '五條產品線，先從高齡者生活科技支援開始。',
       body: [
-        '我們的產品涵蓋運動、健康、家用器具、居家照護科技與教具。第一項計畫聚焦高齡者的日常科技支援，目前正在聯絡不同居住區域的長者，透過需求調查理解他們在手機、網路與居家科技上的實際困境。',
-        '產品上市後將於各銷售通路販售，本站不進行線上交易。',
+        'Tomoroll 的產品方向涵蓋運動、健康、家用器具、居家照護科技與教具。第一項計畫聚焦高齡者的日常科技支援，先從不同居住區域的長者訪談與需求調查開始。',
+        '我們希望理解長者在手機、網路、智慧電視與居家科技上的真實困境，再設計能被長者與家庭自然使用的支援方式。產品與服務尚未上市，本站目前不進行線上交易。',
       ],
     },
     pendingTitle: '高齡者日常科技支援計畫準備中',
-    pendingBody: '我們正在進行需求調查，將以長者熟悉的溝通方式為出發點，設計能協助處理手機、網路與居家科技問題的服務。內容確認後會在這裡公開。',
+    pendingBody: '需求調查正在進行。可公開內容確認後，這裡會更新計畫範圍、服務情境與後續進度。',
   },
   en: {
     hero: {
       eyebrow: 'Products',
-      title: 'Five lines, none launched yet.',
+      title: 'Five product lines, beginning with senior technology support.',
       body: [
-        'Our products span sport, health, household goods, home-care technology and educational toys. Our first programme focuses on everyday technology support for older adults. We are surveying seniors in different residential areas to understand the practical difficulties they face with phones, internet access and home technology.',
-        'Products will be sold through retail channels. This site does not sell directly.',
+        'Tomoroll works across sport, health, household goods, home-care technology and educational toys. Our first programme focuses on everyday technology support for older adults, beginning with interviews and needs research across different residential areas.',
+        'We are learning where phones, internet access, smart TVs and home technology become difficult in real life, then designing support that older adults and families can use naturally. Products and services have not launched yet, and this site does not sell directly.',
       ],
     },
     pendingTitle: 'Everyday technology support for older adults',
-    pendingBody: 'We are conducting needs research and starting from the ways older adults already communicate, with the aim of designing support for phone, internet and home technology problems. More will be published here once confirmed.',
+    pendingBody: 'Needs research is underway. Once public details are confirmed, this section will share the programme scope, service settings and next steps.',
   },
 } as const satisfies Record<Locale, ProductsCopy>;
 
@@ -73,10 +73,10 @@ export const aboutCopy = {
   'zh-TW': {
     hero: {
       eyebrow: 'About Tomoroll',
-      title: '一家把產品從想法帶到市場的公司。',
+      title: '一家把需求研究、產品設計與市場落地接在一起的公司。',
       body: [
-        'Tomoroll 涵蓋產品策略、設計與開發，並在委外製造後進行販售。我們自有的產品線橫跨運動、健康、家用器具、居家照護科技與教具。',
-        '公司同時承接外部單位的開發委託，將同一套能力提供給需要完整產品開發流程的合作對象。',
+        'Tomoroll 從使用者問題出發，涵蓋市場調查、產品策略、設計與開發，並能銜接委外製造、販售與後續市場溝通。',
+        '我們自有的產品線橫跨運動、健康、家用器具、居家照護科技與教具，也承接外部單位的開發委託，將同一套從發想到落地的能力提供給合作對象。',
       ],
     },
     capabilities: {
@@ -95,7 +95,7 @@ export const aboutCopy = {
       eyebrow: 'Contract development',
       title: '委託開發',
       body: [
-        '除了自有產品，我們也承接外部單位的開發委託。合作範圍可以是完整的產品開發流程，也可以是其中的特定環節。',
+        '除了自有產品，我們也承接外部單位的開發委託。合作範圍可以是完整產品流程，也可以是需求研究、產品規劃、設計開發、軟硬體整合或上市前準備中的特定環節。',
       ],
     },
     team: {
@@ -112,10 +112,10 @@ export const aboutCopy = {
   en: {
     hero: {
       eyebrow: 'About Tomoroll',
-      title: 'A company that takes products from idea to market.',
+      title: 'A company connecting needs research, product design and market launch.',
       body: [
-        'Tomoroll covers product strategy, design and development, then manufactures through partners and sells. Our own lines span sport, health, household goods, home-care technology and educational toys.',
-        'We also develop products under contract, offering the same capability to partners who need a full development process.',
+        'Tomoroll starts with user problems, covering market research, product strategy, design and development, then connecting to partner manufacturing, sales and market communication.',
+        'Our own lines span sport, health, household goods, home-care technology and educational toys. We also develop products under contract, offering partners the same path from early idea to launch.',
       ],
     },
     capabilities: {
@@ -134,7 +134,7 @@ export const aboutCopy = {
       eyebrow: 'Contract development',
       title: 'Working with us',
       body: [
-        'Alongside our own products we develop under contract — either a full development process or a specific stage of one.',
+        'Alongside our own products, we develop under contract. A collaboration can cover a full product process or a focused stage such as needs research, product planning, design development, hardware-software integration or launch preparation.',
       ],
     },
     team: {

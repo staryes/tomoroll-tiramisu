@@ -19,7 +19,7 @@ Tomoroll LLC／優呈翌科技股份有限公司（台灣設立登記辦理中�
 - Astro 7 + TypeScript（strict mode）
 - Tailwind CSS 4（僅用於色彩 token；版面為手寫語意 CSS）
 - 中英雙語：中文在根路徑，英文在 `/en/`
-- 自架襯線字型，建置時依實際文案子集化（見下方「字型」）
+- 自架字型，建置時依實際文案子集化（見下方「字型」）
 - npm / Node.js 22
 - Cloudflare Workers Static Assets
 - Cloudflare Web Analytics（可透過建置環境變數啟用）
@@ -44,11 +44,12 @@ npm run preview  # 預覽 dist/
 
 ## 字型
 
-兩套自架字型，透過中性別名 `Tomoroll Display`（拉丁）與 `Tomoroll CJK`（中文）使用。
+兩套自架字型，透過中性別名 `Tomoroll Latin`（拉丁）與 `Tomoroll CJK`（中文）使用。
 `public/_headers` 的 CSP 是 `font-src 'self'`，不能用 Google Fonts，必須自架。
 
-**Display 目前是佔位字型。** 設計檔裡的襯線字已轉外框，抓不到名稱，暫以 Cormorant Garamond
-替代。拿到設計師的字型後，只需改 `scripts/build-fonts.mjs` 的來源與 `public/fonts/fonts.css`，
+**正式字型仍待設計師確認。** 在設計師回覆前，網站暫用 Source Sans 3 搭配 Noto Sans TC：
+比原本的 editorial serif 佔位更清楚，也更適合目前要傳達的產品開發與高齡科技支援調性。
+拿到設計師的字型後，只需改 `scripts/build-fonts.mjs` 的來源與 `public/fonts/fonts.css`，
 呼叫端完全不動。
 
 完整的中文字型每個字重約 1.3 MB。`scripts/build-fonts.mjs` 會掃描 `src/` 裡出現過的字元，
@@ -173,7 +174,7 @@ Cloudflare Worker 已連接 GitHub repository，使用以下設定：
 1. 經本人同意的團隊姓名、職稱、照片與簡介。
 2. 第一項計畫可公開的概念說明。
 3. 台灣公司完成登記後的統編與登記狀態（目前為籌備處，預計 2026 年 9 月完成）。
-4. 設計師的襯線字型名稱與 webfont 授權（目前以 Cormorant Garamond 佔位）。
+4. 設計師的正式字型名稱與 webfont 授權（目前以 Source Sans 3／Noto Sans TC 暫代）。
 5. 首頁與產品頁的實際攝影素材。
 6. 確認正式社群分享圖符合品牌規範。
 7. Cloudflare Web Analytics token。

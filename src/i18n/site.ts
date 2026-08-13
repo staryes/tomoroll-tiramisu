@@ -21,11 +21,11 @@ export const siteCopy = {
   'zh-TW': {
     title: 'Tomoroll 優呈翌科技',
     description:
-      'Tomoroll 從產品策略、設計到開發，委外製造後進行販售。產品線涵蓋運動、健康、家用器具、居家照護科技與教具，並承接外部單位的開發委託。',
+      'Tomoroll 連結需求研究、產品設計、開發與市場落地，產品方向涵蓋運動、健康、家用器具、居家照護科技與教具，第一項計畫聚焦高齡者日常科技支援。',
   },
   en: {
     title: 'Tomoroll',
     description:
-      'Tomoroll takes products from strategy and design through development to manufacture and sale, across sport, health, household, home-care technology and educational toys.',
+      'Tomoroll connects needs research, product design, development and market launch across sport, health, household, home-care technology and educational toys, beginning with everyday technology support for older adults.',
   },
 } as const satisfies Record<Locale, SiteCopy>;

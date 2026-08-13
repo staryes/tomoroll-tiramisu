@@ -8,39 +8,37 @@
  * constant across builds and can be cached hard (see public/_headers). Linked
  * from src/layouts/BaseLayout.astro.
  *
- * `Tomoroll Display` is a placeholder family (currently Cormorant Garamond)
- * standing in for the designer's serif, which is outlined in the source
- * artboards and therefore unidentifiable. Aliasing it behind a neutral family
- * name means swapping the real font later touches only this file and
- * scripts/build-fonts.mjs — no call sites change.
+ * The designer's final family is still pending. For now the neutral aliases
+ * point to a humanist sans stack: Source Sans 3 for Latin and Noto Sans TC for
+ * Traditional Chinese, subsetted by scripts/build-fonts.mjs.
  *
- * font-display: swap — text paints immediately in the system serif and reflows
+ * font-display: swap — text paints immediately in the system sans and reflows
  * once the subset arrives. For a content site that is the right trade;
  * invisible text would be worse than a brief substitution.
  */
 
 @font-face {
-  font-family: 'Tomoroll Display';
+  font-family: 'Tomoroll Latin';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/display-400.woff2') format('woff2');
+  src: url('/fonts/latin-400.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Tomoroll Display';
+  font-family: 'Tomoroll Latin';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('/fonts/display-600.woff2') format('woff2');
+  src: url('/fonts/latin-600.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Tomoroll Display';
+  font-family: 'Tomoroll Latin';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('/fonts/display-700.woff2') format('woff2');
+  src: url('/fonts/latin-700.woff2') format('woff2');
 }
 
 @font-face {

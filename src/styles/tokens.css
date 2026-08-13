@@ -38,17 +38,17 @@
   --on-olive: #ffffff; /* 4.54:1 on olive */
 
   /* ---- Typography ----
-   * `Tomoroll Display` and `Tomoroll CJK` are aliases defined in
-   * public/fonts/fonts.css. Display currently resolves to Cormorant Garamond,
-   * a stand-in for the designer's serif — that font is outlined in the source
-   * artboards, so its name is not recoverable. Because the alias is neutral,
-   * swapping in the real family touches only fonts.css and build-fonts.mjs.
+   * `Tomoroll Latin` and `Tomoroll CJK` are aliases defined in
+   * public/fonts/fonts.css. Until the designer confirms the final font, they
+   * resolve to Source Sans 3 and Noto Sans TC: clear enough for a technology
+   * company, warm enough for senior-focused service copy.
    *
    * Latin first, CJK second: the browser falls through per glyph, so Latin
    * characters take the display face and Han characters take the CJK face.
    */
   --font-body:
-    'Tomoroll Display', 'Tomoroll CJK', ui-serif, Georgia, 'Songti TC', 'PingFang TC', serif;
+    'Tomoroll Latin', 'Tomoroll CJK', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
 
   /* Script-specific tracking. Negative tracking tightens Latin sidebearings but
      crushes full-width CJK glyphs, which already sit in an em box. */
@@ -59,9 +59,9 @@
 
   /* CJK display type needs more leading than Latin — the glyph box is
      full-height, so there is no ascender/descender slack to borrow from. */
-  --leading-display: 1.15;
-  --leading-heading: 1.3;
-  --leading-body: 1.8;
+  --leading-display: 1.08;
+  --leading-heading: 1.22;
+  --leading-body: 1.75;
 
   /* ---- Layout ----
    * The artboards are 1920 wide. Fixed pixel values from the design are

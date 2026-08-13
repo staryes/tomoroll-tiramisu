@@ -32,9 +32,8 @@ body {
   color: var(--olive-ink);
   background: var(--cream);
   font-family: var(--font-body);
-  /* 18px rather than the usual 16: the display serif has a small x-height and
-     Noto Serif TC's strokes are fine, so both scripts need a little more size
-     than a grotesque would. Revisit when the designer's face arrives. */
+  /* 18px keeps long bilingual pages readable for grant reviewers, partners and
+     older visitors without making the interface feel oversized. */
   font-size: 18px;
   line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
