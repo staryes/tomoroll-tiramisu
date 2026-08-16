@@ -31,7 +31,7 @@ export interface ProductLine {
 export interface HomeCopy {
   /** Sits over the hero image, on the lilac caption bar. */
   heroCaption: string;
-  /** From artboard 9. Kept in English in both locales — it is the brand line. */
+  /** From artboard 9. Localized per locale for the homepage statement block. */
   statement: string;
   statementLead?: string;
 
@@ -74,7 +74,7 @@ export interface HomeCopy {
 export const homeCopy = {
   'zh-TW': {
     heroCaption: '從需求調查、產品設計到市場落地。',
-    statement: 'We make everyday technology easier to live with',
+    statement: '讓日常科技更容易融入生活',
 
     intro: {
       eyebrow: 'About Tomoroll',

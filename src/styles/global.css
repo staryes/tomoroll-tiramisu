@@ -249,30 +249,21 @@ body {
    Header
    ============================================================ */
 
-/* The design has no header bar of its own on the home page — the navigation
-   sits directly on the hero in white. Interior pages get the ordinary version. */
+/* The home page uses the white header shown in the artboard; interior pages
+   keep the ordinary in-flow version. */
 .site-header {
   position: relative;
   z-index: 30;
 }
 
-/* The artboard sets these links in white on the lilac strip, which measures
-   1.09:1 — effectively invisible. This is the one place the implementation
-   departs from the drawing: olive-ink on lilac is 4.66:1 and stays in palette.
-   Flagged to the designer. */
-.site-header-overlay {
-  position: absolute;
-  top: 0;
-  right: var(--edge-total);
-  left: 0;
-  color: var(--olive-ink);
+.site-header-overlay + main {
+  --hero-header-height: 112px;
+  --hero-height: calc(100svh - var(--hero-header-height, 0px));
 }
 
-.site-header-overlay .brand-link {
-  /* The lockup already appears at full size inside the hero block, so the
-     header copy would be a duplicate. Kept in the DOM for the "back to home"
-     affordance on interior pages, hidden here. */
-  visibility: hidden;
+.site-header-overlay {
+  color: var(--olive-ink);
+  background: var(--cream);
 }
 
 .header-inner {
@@ -509,14 +500,17 @@ body {
   background: var(--rose);
 }
 
-.dot-field > .dot:nth-child(1) { top: 18%; left: 13%; width: 18px; --depth: 0.6; }
-.dot-field > .dot:nth-child(2) { top: 72%; left: 27%; width: 13px; --depth: 0.35; }
-.dot-field > .dot:nth-child(3) { top: 8%;  left: 38%; width: 22px; --depth: 0.8; }
-.dot-field > .dot:nth-child(4) { top: 78%; left: 61%; width: 16px; --depth: 0.5; }
-.dot-field > .dot:nth-child(5) { top: 22%; left: 72%; width: 30px; --depth: 1.15; }
-.dot-field > .dot:nth-child(6) { top: 58%; left: 86%; width: 14px; --depth: 0.4; }
-.dot-field > .dot:nth-child(7) { top: 52%; left: 6%;  width: 24px; --depth: 0.9; }
-.dot-field > .dot:nth-child(8) { top: 12%; left: 92%; width: 11px; --depth: 0.25; }
+.dot-field > .dot:nth-child(1) { top: 28%; left: 13%; width: 18px; --depth: 0.75; }
+.dot-field > .dot:nth-child(2) { top: 98%; left: 27%; width: 13px; --depth: 1.9; }
+.dot-field > .dot:nth-child(3) { top: 24%; left: 38%; width: 22px; --depth: 1.2; }
+.dot-field > .dot:nth-child(4) { top: 98%; left: 61%; width: 16px; --depth: 0.95; }
+.dot-field > .dot:nth-child(5) { top: 40%; left: 72%; width: 30px; --depth: 0.25; }
+.dot-field > .dot:nth-child(6) { top: 88%; left: 86%; width: 14px; --depth: 0.08; }
+.dot-field > .dot:nth-child(7) { top: 82%; left: 6%;  width: 24px; --depth: 0.45; }
+.dot-field > .dot:nth-child(8) { top: 30%; left: 92%; width: 11px; --depth: 0.12; }
+.dot-field > .dot:nth-child(9) { top: 64%; left: 42%; width: 28px; --depth: 2.1; }
+.dot-field > .dot:nth-child(10) { top: 52%; left: 56%; width: 10px; --depth: 1.55; }
+.dot-field > .dot:nth-child(11) { top: 96%; left: 78%; width: 20px; --depth: 0.35; }
 
 .grid-footer {
   margin-top: var(--space-block);
@@ -530,13 +524,13 @@ body {
    against. Without scroll-driven animation support the wrapper is one screen
    tall and nothing moves — see the @supports block at the end of this file. */
 .hero-scroll {
-  height: 100svh;
+  height: var(--hero-height, 100svh);
 }
 
 .hero {
   position: relative;
   display: grid;
-  height: 100svh;
+  height: var(--hero-height, 100svh);
   grid-template-rows: 26% 74%;
   /* `overflow: clip`, not `overflow: hidden`. Hidden makes an element a scroll
      container, and scroll()/view() resolve against the *nearest* scroll
@@ -564,18 +558,18 @@ body {
   object-fit: cover;
 }
 
-/* Width and height animate rather than transform: scale(). The block goes from
-   a tall rectangle to a small square, which is a non-uniform scale — and a
-   non-uniform scale would distort the logo. Sizing the logo as a percentage of
-   this block instead means it shrinks proportionally for free. */
+/* The olive logo block starts as a square whose height matches the hero, then
+   shrinks to the smaller square shown later in the scroll reference. */
 .hero-brand {
+  --hero-brand-small: clamp(112px, 18vw, 260px);
+  --hero-brand-large: var(--hero-height, 100svh);
   position: absolute;
   z-index: 2;
   top: 0;
-  left: 5%;
+  left: 0;
   display: grid;
-  width: 36%;
-  height: 46%;
+  width: var(--hero-brand-large);
+  height: var(--hero-brand-large);
   place-items: center;
   color: var(--pink-50);
   background: var(--olive);
@@ -964,10 +958,6 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .hero-brand {
-    aspect-ratio: 16 / 10;
-  }
-
   .hero-media {
     aspect-ratio: 4 / 3;
   }
@@ -1013,6 +1003,11 @@ body {
 
   .header-inner {
     min-height: 76px;
+  }
+
+  .site-header-overlay + main {
+    --hero-header-height: 76px;
+    --hero-height: calc(100svh - var(--hero-header-height, 0px));
   }
 
   .member-list,
@@ -1102,7 +1097,7 @@ body {
     /* Hero: the olive block shrinks to a corner square and the photograph opens
        up behind it. Pinned so there is scroll distance to play against. */
     .hero-scroll {
-      height: 190svh;
+      height: calc(190svh - var(--hero-header-height, 0px));
     }
 
     .hero {
@@ -1134,8 +1129,8 @@ body {
 
     @keyframes hero-shrink {
       to {
-        width: 15%;
-        height: 22%;
+        width: var(--hero-brand-small);
+        height: var(--hero-brand-small);
       }
     }
 
@@ -1147,29 +1142,8 @@ body {
       }
     }
 
-    /* Statement: the line scales down towards the upper left as it passes. */
-    .statement-block .statement {
-      transform-origin: top left;
-      animation-name: statement-recede;
-      animation-duration: auto;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: entry 20% exit 90%;
-    }
-
-    @keyframes statement-recede {
-      from {
-        transform: scale(1);
-      }
-      to {
-        transform: scale(0.72) translate(-6%, -14%);
-      }
-    }
-
-    /* Dots drift at different rates by size: the large ones read as near and
-       move furthest, the small ones as far and barely move. That difference is
-       the whole effect — "比較近的移動比較快、比較遠的移動比較慢". */
+    /* The statement stays still; only the dots behind it drift. Dots nearer to
+       the statement use larger depth values, so they travel farther. */
     .dot-field > .dot {
       animation-name: dot-drift;
       animation-duration: auto;
@@ -1181,23 +1155,24 @@ body {
 
     @keyframes dot-drift {
       to {
-        transform: translateY(calc(var(--depth, 1) * -70px));
+        transform: translateY(calc(var(--depth, 1) * -140px));
       }
     }
 
-    /* One full turn as it crosses the viewport — "轉了一圈，像蹺蹺板一樣". */
+    /* Wait until the divider is fully visible, then finish a half turn over roughly
+       half a viewport and hold the finished state. */
     .band-rotator .band {
       animation-name: band-turn;
       animation-duration: auto;
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: view();
-      animation-range: cover;
+      animation-range: contain 0% contain 50%;
     }
 
     @keyframes band-turn {
       to {
-        rotate: 360deg;
+        rotate: 180deg;
       }
     }
   }

@@ -9,11 +9,7 @@ interface Props {
   locale: Locale;
   currentPath: string;
   alternates: Partial<Record<Locale, string>>;
-  /**
-   * The design puts the navigation directly on the hero in white, with no
-   * header bar of its own. Interior pages get the ordinary version: rose links
-   * on the page background.
-   */
+  /** Homepage uses the white artboard header; interior pages use the ordinary header. */
   variant?: 'overlay' | 'solid';
 }
 
