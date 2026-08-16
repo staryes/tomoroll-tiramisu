@@ -500,14 +500,17 @@ body {
   background: var(--rose);
 }
 
-.dot-field > .dot:nth-child(1) { top: 18%; left: 13%; width: 18px; --depth: 1.05; }
-.dot-field > .dot:nth-child(2) { top: 72%; left: 27%; width: 13px; --depth: 1.25; }
-.dot-field > .dot:nth-child(3) { top: 8%;  left: 38%; width: 22px; --depth: 1.15; }
-.dot-field > .dot:nth-child(4) { top: 78%; left: 61%; width: 16px; --depth: 0.75; }
-.dot-field > .dot:nth-child(5) { top: 22%; left: 72%; width: 30px; --depth: 0.45; }
-.dot-field > .dot:nth-child(6) { top: 58%; left: 86%; width: 14px; --depth: 0.25; }
-.dot-field > .dot:nth-child(7) { top: 52%; left: 6%;  width: 24px; --depth: 0.7; }
-.dot-field > .dot:nth-child(8) { top: 12%; left: 92%; width: 11px; --depth: 0.2; }
+.dot-field > .dot:nth-child(1) { top: 34%; left: 13%; width: 18px; --depth: 1.05; }
+.dot-field > .dot:nth-child(2) { top: 86%; left: 27%; width: 13px; --depth: 1.25; }
+.dot-field > .dot:nth-child(3) { top: 24%; left: 38%; width: 22px; --depth: 1.15; }
+.dot-field > .dot:nth-child(4) { top: 88%; left: 61%; width: 16px; --depth: 0.75; }
+.dot-field > .dot:nth-child(5) { top: 38%; left: 72%; width: 30px; --depth: 0.45; }
+.dot-field > .dot:nth-child(6) { top: 72%; left: 86%; width: 14px; --depth: 0.25; }
+.dot-field > .dot:nth-child(7) { top: 66%; left: 6%;  width: 24px; --depth: 0.7; }
+.dot-field > .dot:nth-child(8) { top: 28%; left: 92%; width: 11px; --depth: 0.2; }
+.dot-field > .dot:nth-child(9) { top: 58%; left: 42%; width: 28px; --depth: 1.35; }
+.dot-field > .dot:nth-child(10) { top: 46%; left: 56%; width: 10px; --depth: 1; }
+.dot-field > .dot:nth-child(11) { top: 82%; left: 78%; width: 20px; --depth: 0.55; }
 
 .grid-footer {
   margin-top: var(--space-block);
