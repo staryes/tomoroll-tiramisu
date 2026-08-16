@@ -249,30 +249,16 @@ body {
    Header
    ============================================================ */
 
-/* The design has no header bar of its own on the home page — the navigation
-   sits directly on the hero in white. Interior pages get the ordinary version. */
+/* The home page uses the white header shown in the artboard; interior pages
+   keep the ordinary in-flow version. */
 .site-header {
   position: relative;
   z-index: 30;
 }
 
-/* The artboard sets these links in white on the lilac strip, which measures
-   1.09:1 — effectively invisible. This is the one place the implementation
-   departs from the drawing: olive-ink on lilac is 4.66:1 and stays in palette.
-   Flagged to the designer. */
 .site-header-overlay {
-  position: absolute;
-  top: 0;
-  right: var(--edge-total);
-  left: 0;
   color: var(--olive-ink);
-}
-
-.site-header-overlay .brand-link {
-  /* The lockup already appears at full size inside the hero block, so the
-     header copy would be a duplicate. Kept in the DOM for the "back to home"
-     affordance on interior pages, hidden here. */
-  visibility: hidden;
+  background: var(--cream);
 }
 
 .header-inner {
