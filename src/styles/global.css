@@ -554,16 +554,17 @@ body {
   object-fit: cover;
 }
 
-/* The olive logo block scales as a square, matching the scroll reference
-   frames while letting the lockup shrink proportionally inside it. */
+/* The olive logo block fills the hero height in the opening frame, then shrinks
+   to the small square shown later in the scroll reference. */
 .hero-brand {
+  --hero-brand-small: clamp(112px, 18vw, 260px);
   position: absolute;
   z-index: 2;
   top: 0;
   left: 0;
   display: grid;
-  width: min(40%, 70svh);
-  aspect-ratio: 1;
+  width: min(52%, 82svh);
+  height: 100%;
   place-items: center;
   color: var(--pink-50);
   background: var(--olive);
@@ -1122,7 +1123,8 @@ body {
 
     @keyframes hero-shrink {
       to {
-        width: min(18%, 32svh);
+        width: var(--hero-brand-small);
+        height: var(--hero-brand-small);
       }
     }
 
