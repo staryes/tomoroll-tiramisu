@@ -500,14 +500,14 @@ body {
   background: var(--rose);
 }
 
-.dot-field > .dot:nth-child(1) { top: 18%; left: 13%; width: 18px; --depth: 0.6; }
-.dot-field > .dot:nth-child(2) { top: 72%; left: 27%; width: 13px; --depth: 0.35; }
-.dot-field > .dot:nth-child(3) { top: 8%;  left: 38%; width: 22px; --depth: 0.8; }
-.dot-field > .dot:nth-child(4) { top: 78%; left: 61%; width: 16px; --depth: 0.5; }
-.dot-field > .dot:nth-child(5) { top: 22%; left: 72%; width: 30px; --depth: 1.15; }
-.dot-field > .dot:nth-child(6) { top: 58%; left: 86%; width: 14px; --depth: 0.4; }
-.dot-field > .dot:nth-child(7) { top: 52%; left: 6%;  width: 24px; --depth: 0.9; }
-.dot-field > .dot:nth-child(8) { top: 12%; left: 92%; width: 11px; --depth: 0.25; }
+.dot-field > .dot:nth-child(1) { top: 18%; left: 13%; width: 18px; --depth: 1.05; }
+.dot-field > .dot:nth-child(2) { top: 72%; left: 27%; width: 13px; --depth: 1.25; }
+.dot-field > .dot:nth-child(3) { top: 8%;  left: 38%; width: 22px; --depth: 1.15; }
+.dot-field > .dot:nth-child(4) { top: 78%; left: 61%; width: 16px; --depth: 0.75; }
+.dot-field > .dot:nth-child(5) { top: 22%; left: 72%; width: 30px; --depth: 0.45; }
+.dot-field > .dot:nth-child(6) { top: 58%; left: 86%; width: 14px; --depth: 0.25; }
+.dot-field > .dot:nth-child(7) { top: 52%; left: 6%;  width: 24px; --depth: 0.7; }
+.dot-field > .dot:nth-child(8) { top: 12%; left: 92%; width: 11px; --depth: 0.2; }
 
 .grid-footer {
   margin-top: var(--space-block);
@@ -1139,29 +1139,8 @@ body {
       }
     }
 
-    /* Statement: the line scales down towards the upper left as it passes. */
-    .statement-block .statement {
-      transform-origin: top left;
-      animation-name: statement-recede;
-      animation-duration: auto;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: entry 20% exit 90%;
-    }
-
-    @keyframes statement-recede {
-      from {
-        transform: scale(1);
-      }
-      to {
-        transform: scale(0.72) translate(-6%, -14%);
-      }
-    }
-
-    /* Dots drift at different rates by size: the large ones read as near and
-       move furthest, the small ones as far and barely move. That difference is
-       the whole effect — "比較近的移動比較快、比較遠的移動比較慢". */
+    /* The statement stays still; only the dots behind it drift. Dots nearer to
+       the statement use larger depth values, so they travel farther. */
     .dot-field > .dot {
       animation-name: dot-drift;
       animation-duration: auto;
@@ -1173,7 +1152,7 @@ body {
 
     @keyframes dot-drift {
       to {
-        transform: translateY(calc(var(--depth, 1) * -70px));
+        transform: translateY(calc(var(--depth, 1) * -96px));
       }
     }
 
