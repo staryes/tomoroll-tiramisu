@@ -1159,19 +1159,20 @@ body {
       }
     }
 
-    /* One full turn as it crosses the viewport — "轉了一圈，像蹺蹺板一樣". */
+    /* Wait until the divider is fully visible, then finish a half turn over roughly
+       half a viewport and hold the finished state. */
     .band-rotator .band {
       animation-name: band-turn;
       animation-duration: auto;
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: view();
-      animation-range: cover;
+      animation-range: contain 0% contain 50%;
     }
 
     @keyframes band-turn {
       to {
-        rotate: 360deg;
+        rotate: 180deg;
       }
     }
   }
