@@ -560,7 +560,7 @@ body {
   position: absolute;
   z-index: 2;
   top: 0;
-  right: 0;
+  left: 0;
   display: grid;
   width: min(40%, 70svh);
   aspect-ratio: 1;
@@ -997,6 +997,10 @@ body {
 
   .header-inner {
     min-height: 76px;
+  }
+
+  .site-header-overlay + main {
+    --hero-header-height: 76px;
   }
 
   .member-list,
