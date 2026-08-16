@@ -572,7 +572,7 @@ body {
   top: 0;
   left: 5%;
   display: grid;
-  width: min(35%, 62svh);
+  width: min(40%, 70svh);
   aspect-ratio: 1;
   place-items: center;
   color: var(--pink-50);
@@ -1128,7 +1128,7 @@ body {
 
     @keyframes hero-shrink {
       to {
-        width: min(15%, 27svh);
+        width: min(18%, 32svh);
       }
     }
 
