@@ -554,8 +554,8 @@ body {
   object-fit: cover;
 }
 
-/* The olive logo block fills the hero height in the opening frame, then shrinks
-   to the small square shown later in the scroll reference. */
+/* The olive logo block starts as a square whose height matches the hero, then
+   shrinks to the smaller square shown later in the scroll reference. */
 .hero-brand {
   --hero-brand-small: clamp(112px, 18vw, 260px);
   position: absolute;
@@ -563,8 +563,8 @@ body {
   top: 0;
   left: 0;
   display: grid;
-  width: min(52%, 82svh);
   height: 100%;
+  aspect-ratio: 1;
   place-items: center;
   color: var(--pink-50);
   background: var(--olive);
