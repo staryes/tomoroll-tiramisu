@@ -258,6 +258,7 @@ body {
 
 .site-header-overlay + main {
   --hero-header-height: 112px;
+  --hero-height: calc(100svh - var(--hero-header-height, 0px));
 }
 
 .site-header-overlay {
@@ -520,13 +521,13 @@ body {
    against. Without scroll-driven animation support the wrapper is one screen
    tall and nothing moves — see the @supports block at the end of this file. */
 .hero-scroll {
-  height: calc(100svh - var(--hero-header-height, 0px));
+  height: var(--hero-height, 100svh);
 }
 
 .hero {
   position: relative;
   display: grid;
-  height: calc(100svh - var(--hero-header-height, 0px));
+  height: var(--hero-height, 100svh);
   grid-template-rows: 26% 74%;
   /* `overflow: clip`, not `overflow: hidden`. Hidden makes an element a scroll
      container, and scroll()/view() resolve against the *nearest* scroll
@@ -558,13 +559,14 @@ body {
    shrinks to the smaller square shown later in the scroll reference. */
 .hero-brand {
   --hero-brand-small: clamp(112px, 18vw, 260px);
+  --hero-brand-large: var(--hero-height, 100svh);
   position: absolute;
   z-index: 2;
   top: 0;
   left: 0;
   display: grid;
-  height: 100%;
-  aspect-ratio: 1;
+  width: var(--hero-brand-large);
+  height: var(--hero-brand-large);
   place-items: center;
   color: var(--pink-50);
   background: var(--olive);
@@ -1002,6 +1004,7 @@ body {
 
   .site-header-overlay + main {
     --hero-header-height: 76px;
+    --hero-height: calc(100svh - var(--hero-header-height, 0px));
   }
 
   .member-list,
