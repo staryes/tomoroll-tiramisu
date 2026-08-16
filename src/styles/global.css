@@ -1118,6 +1118,12 @@ body {
       animation-range: 0 80svh;
     }
 
+    .hero-brand.is-locked-small {
+      width: var(--hero-brand-small);
+      height: var(--hero-brand-small);
+      animation: none;
+    }
+
     .hero-caption {
       animation-name: hero-caption-out;
       animation-duration: auto;
