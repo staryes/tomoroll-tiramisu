@@ -564,18 +564,16 @@ body {
   object-fit: cover;
 }
 
-/* Width and height animate rather than transform: scale(). The block goes from
-   a tall rectangle to a small square, which is a non-uniform scale — and a
-   non-uniform scale would distort the logo. Sizing the logo as a percentage of
-   this block instead means it shrinks proportionally for free. */
+/* The olive logo block scales as a square, matching the scroll reference
+   frames while letting the lockup shrink proportionally inside it. */
 .hero-brand {
   position: absolute;
   z-index: 2;
   top: 0;
   left: 5%;
   display: grid;
-  width: 36%;
-  height: 46%;
+  width: min(35%, 62svh);
+  aspect-ratio: 1;
   place-items: center;
   color: var(--pink-50);
   background: var(--olive);
@@ -964,10 +962,6 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .hero-brand {
-    aspect-ratio: 16 / 10;
-  }
-
   .hero-media {
     aspect-ratio: 4 / 3;
   }
@@ -1134,8 +1128,7 @@ body {
 
     @keyframes hero-shrink {
       to {
-        width: 15%;
-        height: 22%;
+        width: min(15%, 27svh);
       }
     }
 
