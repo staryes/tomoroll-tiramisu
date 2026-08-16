@@ -256,6 +256,10 @@ body {
   z-index: 30;
 }
 
+.site-header-overlay + main {
+  --hero-header-height: 112px;
+}
+
 .site-header-overlay {
   color: var(--olive-ink);
   background: var(--cream);
@@ -516,13 +520,13 @@ body {
    against. Without scroll-driven animation support the wrapper is one screen
    tall and nothing moves — see the @supports block at the end of this file. */
 .hero-scroll {
-  height: 100svh;
+  height: calc(100svh - var(--hero-header-height, 0px));
 }
 
 .hero {
   position: relative;
   display: grid;
-  height: 100svh;
+  height: calc(100svh - var(--hero-header-height, 0px));
   grid-template-rows: 26% 74%;
   /* `overflow: clip`, not `overflow: hidden`. Hidden makes an element a scroll
      container, and scroll()/view() resolve against the *nearest* scroll
@@ -556,7 +560,7 @@ body {
   position: absolute;
   z-index: 2;
   top: 0;
-  left: 5%;
+  right: 0;
   display: grid;
   width: min(40%, 70svh);
   aspect-ratio: 1;
@@ -1082,7 +1086,7 @@ body {
     /* Hero: the olive block shrinks to a corner square and the photograph opens
        up behind it. Pinned so there is scroll distance to play against. */
     .hero-scroll {
-      height: 190svh;
+      height: calc(190svh - var(--hero-header-height, 0px));
     }
 
     .hero {
